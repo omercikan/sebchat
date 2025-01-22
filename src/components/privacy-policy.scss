@@ -1,0 +1,25 @@
+.privacy-enter {
+    opacity: 0;
+    visibility: hidden;
+    scale: .9;
+}
+
+.privacy-enter-active {
+    opacity: 1;
+    scale: 1;
+    visibility: visible;
+    transition: all .3s ease;
+}
+
+.privacy-exit {
+    opacity: 1;
+    scale: 1;
+    visibility: visible;
+}
+
+.privacy-exit-active {
+    opacity: 0;
+    scale: .9;
+    visibility: hidden;
+    transition: all .3s ease;
+}
