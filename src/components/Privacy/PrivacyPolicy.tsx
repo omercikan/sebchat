@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import "./privacy-policy.scss";
 
@@ -112,13 +111,6 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({
             Sebchat, Gizlilik Politikasını zaman zaman güncelleyebilir. Bu tür
             değişiklikler, uygulama üzerinden veya e-posta yoluyla kullanıcılara
             bildirilecektir.
-          </p>
-
-          <h2 className="font-medium">9. İletişim</h2>
-          <p className="my-5 text-sm text-[#0F1828]">
-            Bu Gizlilik Politikası hakkında herhangi bir sorunuz varsa, bize
-            <Link to="mailto:sebchat@info.com">sebchat@info.com</Link> adresi
-            üzerinden ulaşabilirsiniz.
           </p>
         </div>
       </div>
