@@ -17,6 +17,7 @@ import ChatList from "../components/Chat/ChatList";
 import ProfilePhoto from "../assets/images/profile.png";
 import Loading from "../components/Loading";
 import Panel from "../components/Chat/Panel/Panel";
+import { useNavigate } from "react-router-dom";
 
 const Chat: React.FC = () => {
   const [message, setMessage] = useState<string>("");
@@ -27,6 +28,13 @@ const Chat: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [panel, setPanel] = useState<boolean>(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!user) {
+      navigate("/", { replace: true })
+    }
+  }, [navigate, user])
 
   useEffect(() => {
     const q = query(collection(db, "chat"), orderBy("serverTime"));
@@ -74,18 +82,18 @@ const Chat: React.FC = () => {
 
   return (
     <React.Fragment>
-      <header className="bg-[#0F1828] py-2">
+      <header className="bg-[#0F1828] py-4">
         <div className="container mx-auto">
           <div className="flex items-center justify-between">
             <strong className="text-[#F7F7FC] font-medium">
-              Siz {name || surname ? `(${name} ${surname})` : ""}
+              Siz {name && surname ? `(${name} ${surname})` : `(${name})`}
             </strong>
 
-            <div className="cursor-pointer relative" onClick={() => setPanel(!panel)}>
+            <div className="cursor-pointer" onClick={() => setPanel(!panel)}>
               <img
                 src={userPhoto ? userPhoto : ProfilePhoto}
                 alt={`${name} ${surname}`}
-                className="w-[45px] h-[45px] object-cover rounded-full"
+                className="w-[35px] h-[35px] object-cover rounded-full"
               />
 
               { <Panel panel={panel} /> }
