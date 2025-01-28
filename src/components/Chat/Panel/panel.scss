@@ -1,0 +1,19 @@
+.panel-enter {
+    opacity: 0;
+    visibility: hidden;
+    scale: .9;
+}
+
+.panel-enter-active {
+    opacity: 1;
+    visibility: visible;
+    scale: 1;
+    transition: all .3s ease;
+}
+
+.panel-exit-active {
+    opacity: 0;
+    visibility: hidden;
+    scale: .9;
+    transition: all .3s ease;
+}

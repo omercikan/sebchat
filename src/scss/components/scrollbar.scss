@@ -1,0 +1,12 @@
+.main-chat-area {
+    &::-webkit-scrollbar {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        width: 3px;
+        background-color: #99999999;
+    }
+}

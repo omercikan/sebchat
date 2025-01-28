@@ -6,8 +6,19 @@
 
 body {
     background-color: #0F1828;
+    -webkit-text-size-adjust: 100%;
+}
+
+body,
+html {
+    width: 100%;
+    overflow-y: hidden;
 }
 
 img {
     user-select: none;
+}
+
+li {
+    list-style: none;
 }
