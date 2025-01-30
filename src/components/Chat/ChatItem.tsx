@@ -12,7 +12,7 @@ const ChatItem: React.FC<ChatItemProps> = ({ user }) => {
     <React.Fragment>
       <li className="w-full">
         <div
-          className={` ${
+          className={`${
             userId == auth.currentUser?.uid
               ? `bg-[#375FFF] float-end`
               : "bg-[#0F1828] float-left"
@@ -22,7 +22,7 @@ const ChatItem: React.FC<ChatItemProps> = ({ user }) => {
               : "w-max max-md:w-auto"
           }`}
         >
-          <span className="text-sm break-all text-start pe-16 w-full">{message}</span>
+          <span className="text-sm text-start max-md:pe-6 w-full">{message}</span>
           <span className="text-end text-[10px] text-[#F7F7FC]">
             {time_To_Send}
           </span>

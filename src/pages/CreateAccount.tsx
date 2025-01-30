@@ -4,11 +4,11 @@ import {
   sendEmailVerification,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebaseConfig";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import Profile from "../components/Profile/Profile";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Loading from "../components/Loading";
@@ -16,7 +16,7 @@ import MailImage from "../assets/images/mail.png";
 import LoginImage from "../assets/images/login.png";
 import { PiArrowArcRightThin } from "react-icons/pi";
 
-const PhoneNumber: React.FC = () => {
+const CreateAccount: React.FC = () => {
   const [user, isLoading] = useAuthState(auth);
   const [login, setLogin] = useState(false);
   const [authStep, setAuthStep] = useState(1);
@@ -43,9 +43,9 @@ const PhoneNumber: React.FC = () => {
       }
 
       if (user?.emailVerified) {
-        toast.success("Doğrulama Başarılı");
+        toast.success("Doğrulama başarılı");
 
-        setTimeout(() => {
+        setTimeout(() => { 
           if (isMounted) {
             setAuthStep(2);
           }
@@ -77,12 +77,12 @@ const PhoneNumber: React.FC = () => {
         try {
           await signInWithEmailAndPassword(auth, inputs.email, inputs.password);
           navigate("/sohbet");
-        } catch (error: any) { 
+        } catch (error: any) {
           switch (error.code) {
             case "auth/invalid-credential":
               toast.error("Hesap bulunamadı");
               break;
-          } 
+          }
         }
       } else {
         try {
@@ -125,10 +125,6 @@ const PhoneNumber: React.FC = () => {
       <React.Fragment>
         {authStep == 1 ? (
           <div>
-            <div>
-              <Toaster position="top-right" reverseOrder={true} />
-            </div>
-
             <div
               className="absolute left-8 top-8 max-sm:left-5 max-sm:top-6"
               onClick={() => navigate("/")}
@@ -175,7 +171,7 @@ const PhoneNumber: React.FC = () => {
                 </p>
               </div>
 
-              <div className="mt-14 w-[25rem] max-[37.5rem]:w-[23.75rem] max-[25rem]:w-[90%]">
+              <div className="mt-14 w-[400px] max-[400px]:w-[90%] max-[600px]:w-[380px]">
                 <form
                   className="flex flex-col gap-3"
                   onSubmit={handleCreateUser}
@@ -212,7 +208,7 @@ const PhoneNumber: React.FC = () => {
                   )}
 
                   <button
-                    className="bg-[#375FFF] text-[#F7F7FC] mt-16 mx-auto w-[25rem] max-[37.5rem]:w-[23.75rem] max-[25rem]:w-[90%] py-4 rounded-[1.875rem] max-[21.875rem]:px-20 disabled:bg-gray-500 disabled:cursor-not-allowed"
+                    className="bg-[#375FFF] text-[#F7F7FC] mt-16 mx-auto w-[400px] max-[600px]:w-[380px] max-[400px]:w-[90%] py-4 rounded-[1.875rem] max-[21.875rem]:px-20 disabled:bg-gray-500 disabled:cursor-not-allowed"
                     disabled={!inputs.email || !inputs.password}
                   >
                     {login ? "Giriş Yap" : "Kayıt Ol"}
@@ -229,4 +225,4 @@ const PhoneNumber: React.FC = () => {
   }
 };
 
-export default PhoneNumber;
+export default memo(CreateAccount);
