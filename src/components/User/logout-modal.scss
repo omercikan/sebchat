@@ -1,0 +1,25 @@
+.logout-modal-enter {
+    opacity: 0;
+    visibility: hidden;
+    scale: .7;
+}
+
+.logout-modal-enter-active {
+    opacity: 1;
+    scale: 1;
+    visibility: visible;
+    transition: all .4s ease;
+}
+
+.logout-modal-exit {
+    opacity: 1;
+    scale: 1;
+    visibility: visible;
+}
+
+.logout-modal-exit-active {
+    opacity: 0;
+    scale: .7;
+    visibility: hidden;
+    transition: all .4s ease;
+}

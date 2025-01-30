@@ -1,0 +1,39 @@
+.account-modal-enter {
+  right: -100%;
+}
+
+.account-modal-enter-active {
+  transition: all 0.4s ease;
+  right: 0%;
+}
+
+.account-modal-exit {
+  right: 0%;
+}
+
+.account-modal-exit-active {
+  right: -100%;
+  transition: all 0.4s ease;
+}
+
+.account-modal-close-enter {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.account-modal-close-enter-active {
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.4s ease;
+}
+
+.account-modal-close-exit {
+  opacity: 1;
+  visibility: visible;
+}
+
+.account-modal-close-exit-active {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+}

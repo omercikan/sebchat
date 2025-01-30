@@ -1,0 +1,33 @@
+.account-logout {
+  button {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.6s ease;
+
+    &:hover::after {
+      top: -45%;
+      transform: translateX(-50%) scaleY(1) scaleX(0.8);
+    }
+
+    &:hover {
+      color: #f8d7da;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 55%;
+      top: 180%;
+      transform: translateX(-50%) scaleY(1) scaleX(1.45);
+      background-color: #dc3545;
+      color: #f8d7da;
+      width: 160%;
+      height: 190%;
+      z-index: -1;
+      border-radius: 100%;
+      display: block;
+      transition: all 0.5s 0.1s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+  }
+}
