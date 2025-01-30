@@ -10,6 +10,7 @@ import { CSSTransition } from "react-transition-group";
 import { updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
 import LogoutModal from "./LogoutModal";
+import ProfileImage from "../../assets/images/profile.png";
 
 const userPhotoStorage =
   localStorage.getItem("userPhoto") &&
@@ -53,7 +54,9 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
       if (isEditModeName && nameInputRef.current?.value.length) {
         setIsEditModeName(false);
         if (user && user.displayName?.split(" ")[0] !== inputs.name) {
-          updateProfile(user, { displayName: `${nameInputRef.current?.value} ${surnameInputRef.current?.value}` })
+          updateProfile(user, {
+            displayName: `${nameInputRef.current?.value} ${surnameInputRef.current?.value}`,
+          })
             .then(() => {
               toast("Adınız başarıyla güncellendi!", {
                 icon: "🎉",
@@ -77,7 +80,12 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
       setIsEditModeSurname(true);
       if (isEditModeSurname && surnameInputRef.current?.value.length) {
         setIsEditModeSurname(false);
-        if (user && user?.displayName?.split(" ")[1] !== inputs.surname && inputs.surname !== "Soyadı belirtilmemiş" && inputs.surname !== "Soyadı") {
+        if (
+          user &&
+          user?.displayName?.split(" ")[1] !== inputs.surname &&
+          inputs.surname !== "Soyadı belirtilmemiş" &&
+          inputs.surname !== "Soyadı"
+        ) {
           updateProfile(user, {
             displayName: `${nameInputRef.current?.value} ${surnameInputRef.current.value}`,
           })
@@ -100,12 +108,15 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
     }
   };
 
-  const handleChangeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputs((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  }, []) 
+  const handleChangeInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setInputs((prevState) => ({
+        ...prevState,
+        [e.target.name]: e.target.value,
+      }));
+    },
+    []
+  );
 
   const handleSetPhoto = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,7 +128,7 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
           const base64Image = reader.result as string;
           setUserPhoto(base64Image);
           localStorage.setItem("userPhoto", JSON.stringify(base64Image));
-          toast.success("Profil fotoğrafınız başarıyla güncellendi.")
+          toast.success("Profil fotoğrafınız başarıyla güncellendi.");
         };
         reader.readAsDataURL(image);
       }
@@ -176,7 +187,7 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
             </CSSTransition>
 
             <div
-              className="bg-[#0f1828] shadow-[#000] shadow-2xl drop-shadow-2xl w-[430px] max-sm:w-full fixed right-0 top-0 h-screen"
+              className="bg-[#0f1828] shadow-[#000] shadow-2xl drop-shadow-2xl w-[430px] max-sm:w-full fixed right-0 top-0 h-full"
               ref={accountModalRef}
             >
               <header className="ps-4 pe-2.5 pt-4">
@@ -201,15 +212,25 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
                     htmlFor="userAccountUploadPhoto"
                     className="cursor-pointer"
                   >
-                    <img
-                      src={userPhoto ? userPhoto : userPhotoStorage}
-                      alt={`${user?.displayName?.trim()}`}
-                      className="rounded-full mx-auto w-full h-full object-cover opacity-50 border-[2px] border-dashed border-[#fff]"
-                      style={{
-                        backgroundImage:
-                          "linear-gradient(rgba(255, 255, 255, .3), rgba(0, 0, 0, .3))",
-                      }}
-                    />
+                    {userPhoto && (
+                      <img
+                        src={userPhoto ? userPhoto : userPhotoStorage}
+                        alt={`${user?.displayName?.trim()}`}
+                        className="rounded-full mx-auto w-full h-full object-cover opacity-50 border-[2px] border-dashed border-[#fff]"
+                        style={{
+                          backgroundImage:
+                            "linear-gradient(rgba(255, 255, 255, .3), rgba(0, 0, 0, .3))",
+                        }}
+                      />
+                    )}
+
+                    {!userPhoto && (
+                      <img
+                        src={ProfileImage}
+                        alt="profil"
+                        className="rounded-full mx-auto w-full p-4 h-full object-cover opacity-50 border-[2px] border-dashed border-[#fff]"
+                      />
+                    )}
 
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                       <FaCamera

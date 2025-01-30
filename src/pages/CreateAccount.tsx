@@ -91,10 +91,10 @@ const CreateAccount: React.FC = () => {
             inputs.email,
             inputs.password
           );
-          await sendEmailVerification(userCredential.user);
-          if (userCredential.user) {
+          if(userCredential) {
             toast.success("Doğrulama maili gönderildi");
           }
+          await sendEmailVerification(userCredential.user);
         } catch (error: any) {
           switch (error.code) {
             case "auth/weak-password":

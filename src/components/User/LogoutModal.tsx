@@ -25,6 +25,8 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
         duration: 3000
     });
 
+    setLogoutModal(false)
+
     setTimeout(() => {
       signOut(auth);
     }, 3000);

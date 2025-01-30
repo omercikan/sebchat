@@ -24,17 +24,20 @@ const Chat: React.FC = () => {
   const [user, isLoading] = useAuthState(auth);
   const name = user?.displayName?.split(" ")[0];
   const surname = user?.displayName?.split(" ")[1];
-  const userPhoto = localStorage.getItem("userPhoto") && JSON.parse(localStorage.getItem("userPhoto") || "[]");
+  const userPhoto =
+    localStorage.getItem("userPhoto") &&
+    JSON.parse(localStorage.getItem("userPhoto") || "[]");
   const dispatch = useDispatch<AppDispatch>();
   const [panel, setPanel] = useState<boolean>(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const messageInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!user) {
-      navigate("/", { replace: true })
+    if (!user) {
+      navigate("/", { replace: true });
     }
-  }, [navigate, user])
+  }, [navigate, user]);
 
   useEffect(() => {
     const q = query(collection(db, "chat"), orderBy("serverTime"));
@@ -48,36 +51,44 @@ const Chat: React.FC = () => {
     });
   }, [dispatch]);
 
-  const handleAddMessage = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddMessage = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      messageInputRef.current?.focus();
 
-      if(message.length) {
+      if (message.length) {
         await addDoc(collection(db, "chat"), {
           userId: auth.currentUser?.uid,
           message: message,
-          timeInformation: new Date(Timestamp.now().seconds*1000).toLocaleTimeString("tr"),
-          clientTime: new Date(Timestamp.now().seconds*1000).toLocaleDateString("tr"),
+          timeInformation: new Date(
+            Timestamp.now().seconds * 1000
+          ).toLocaleTimeString("tr"),
+          clientTime: new Date(
+            Timestamp.now().seconds * 1000
+          ).toLocaleDateString("tr"),
           serverTime: JSON.stringify(Timestamp.fromDate(new Date())),
         });
-  
+
         setMessage("");
-      }
-      
-      if(chatContainerRef.current) {
-        chatContainerRef.current.scrollTop = chatContainerRef.current?.scrollHeight
+
+        if (chatContainerRef.current) {
+          chatContainerRef.current.scrollTop =
+            chatContainerRef.current.scrollHeight;
+        }
       }
     },
     [message]
   );
 
   useEffect(() => {
-    if(chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
-    }  
-  }, [])
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, []);
 
-  if(isLoading) {
-    return <Loading />
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (
@@ -101,13 +112,16 @@ const Chat: React.FC = () => {
           </div>
         </header>
 
-        <main className="main-chat-area bg-[#152033] py-3 max-lg:pb-20 h-[calc(100vh-137px)] scroll-smooth text-[#F7F7FC] overflow-auto" ref={chatContainerRef}>
+        <main
+          className="main-chat-area bg-[#152033] py-3 max-lg:pb-20 h-[calc(100vh-137px)] scroll-smooth text-[#F7F7FC] overflow-auto"
+          ref={chatContainerRef}
+        >
           <div className="px-10 max-md:px-1.5">
             <ChatList />
           </div>
         </main>
 
-        <footer className="fixed left-0 bottom-0 w-full">
+        <footer className="fixed left-0 bottom-0 w-full pb-[env(safe-area-inset-bottom)]">
           <form onSubmit={handleAddMessage}>
             <div className="w-full flex justify-center gap-5 p-3 bg-[#0F1828]">
               <input
@@ -115,10 +129,12 @@ const Chat: React.FC = () => {
                 placeholder="Bir mesaj yazın"
                 className="bg-[#152033] text-sm w-[100%] outline-none p-4 text-[#F7F7FC] rounded-md placeholder:text-[#F7F7FC]"
                 value={message}
+                ref={messageInputRef}
                 onChange={(e) => setMessage(e.target.value)}
+                enterKeyHint="send"
               />
 
-              <button className="outline-none">
+              <button type="submit" className="outline-none">
                 <RiSendPlaneFill color="#375FFF" size={24} />
               </button>
             </div>
@@ -126,7 +142,14 @@ const Chat: React.FC = () => {
         </footer>
       </div>
 
-      {<UserAccountSetting name={name} surname={surname} panel={panel} setPanel={setPanel} />}
+      {
+        <UserAccountSetting
+          name={name}
+          surname={surname}
+          panel={panel}
+          setPanel={setPanel}
+        />
+      }
     </React.Fragment>
   );
 };
