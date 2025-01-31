@@ -114,7 +114,7 @@ const Profile: React.FC = () => {
 
           <button 
                 className="bg-[#375FFF] text-[#F7F7FC] mt-16 w-[400px] max-[600px]:w-[380px] max-[400px]:w-[90%] py-4 rounded-[30px] max-[350px]:px-20 disabled:bg-gray-500     
-                disabled:cursor-not-allowed"
+                disabled:cursor-not-allowed cursor-pointer"
                 disabled={!userInfo.name}
             >
             Kaydet

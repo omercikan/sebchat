@@ -34,7 +34,7 @@ const Chat: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !isLoading) {
       navigate("/", { replace: true });
     }
   }, [navigate, user]);
@@ -82,11 +82,11 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight; 
     }
-  }, []);
+  }, [chatContainerRef]); 
 
+  
   if (isLoading) {
     return <Loading />;
   }
@@ -135,7 +135,7 @@ const Chat: React.FC = () => {
               />
 
               <button type="submit" className="outline-none">
-                <RiSendPlaneFill color="#375FFF" size={24} />
+                <RiSendPlaneFill color="#375FFF" size={24} cursor="pointer" />
               </button>
             </div>
           </form>

@@ -58,14 +58,14 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
 
             <div className="pt-[50px] flex justify-end gap-x-4 text-sm font-medium">
               <button
-                className="border border-[#8696A026] hover:shadow-xl text-[#375fff] transition-shadow duration-300 py-2.5 px-6 rounded-full"
+                className="border border-[#8696A026] hover:shadow-xl text-[#375fff] transition-shadow duration-300 py-2.5 px-6 rounded-full cursor-pointer"
                 onClick={closeLogoutModal}
               >
                 İptal
               </button>
 
               <button
-                className="bg-[#375fff] text-[#f7f7fc] hover:bg-[#4A6DFF] rounded-full py-2.5 px-6 transition-all duration-300"
+                className="bg-[#375fff] text-[#f7f7fc] hover:bg-[#4A6DFF] rounded-full py-2.5 px-6 transition-all duration-300 cursor-pointer"
                 onClick={handleExitAccount}
               >
                 Çıkış yap

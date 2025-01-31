@@ -43,7 +43,9 @@ const CreateAccount: React.FC = () => {
       }
 
       if (user?.emailVerified) {
-        toast.success("Doğrulama başarılı");
+        toast.success("Doğrulama başarılı", {
+          id: "success-verified",
+        });
 
         setTimeout(() => { 
           if (isMounted) {
@@ -52,7 +54,7 @@ const CreateAccount: React.FC = () => {
         }, 3000);
       }
     });
-
+    
     return () => {
       isMounted = false;
       unsubscribe();
@@ -82,6 +84,8 @@ const CreateAccount: React.FC = () => {
             case "auth/invalid-credential":
               toast.error("Hesap bulunamadı");
               break;
+            case "auth/invalid-email":
+              toast.error("Geçersiz e-posta")
           }
         }
       } else {
@@ -92,7 +96,7 @@ const CreateAccount: React.FC = () => {
             inputs.password
           );
           if(userCredential) {
-            toast.success("Doğrulama maili gönderildi");
+            toast.success("Doğrulama e-postası gönderildi");
           }
           await sendEmailVerification(userCredential.user);
         } catch (error: any) {
@@ -208,8 +212,8 @@ const CreateAccount: React.FC = () => {
                   )}
 
                   <button
-                    className="bg-[#375FFF] text-[#F7F7FC] mt-16 mx-auto w-[400px] max-[600px]:w-[380px] max-[400px]:w-[90%] py-4 rounded-[1.875rem] max-[21.875rem]:px-20 disabled:bg-gray-500 disabled:cursor-not-allowed"
-                    disabled={!inputs.email || !inputs.password}
+                    className="bg-[#375FFF] text-[#F7F7FC] mt-16 mx-auto w-[400px] max-[600px]:w-[380px] max-[400px]:w-[90%] py-4 rounded-[1.875rem] max-[21.875rem]:px-20 disabled:bg-gray-500 disabled:cursor-not-allowed cursor-pointer"
+                    disabled={!inputs.email || !inputs.password || !!user}
                   >
                     {login ? "Giriş Yap" : "Kayıt Ol"}
                   </button>

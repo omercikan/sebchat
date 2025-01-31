@@ -351,7 +351,7 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
               <div className="account-logout">
                 <div className="px-[30px] absolute bottom-5 w-full text-center">
                   <button
-                    className="text-[#58151c] bg-[#f8d7da] p-2 rounded-md w-full"
+                    className="text-[#58151c] bg-[#f8d7da] p-2 rounded-md w-full cursor-pointer"
                     onClick={handleLogoutModal}
                   >
                     Çıkış yap

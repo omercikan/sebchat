@@ -45,7 +45,7 @@ const GettingStarted: React.FC = () => {
               Gizlilik Politikamız
             </strong>
             <button
-              className="bg-[#375FFF] px-28 py-3 rounded-[30px] max-[350px]:px-20"
+              className="bg-[#375FFF] px-28 py-3 rounded-[30px] max-[350px]:px-20 cursor-pointer"
               onClick={() => navigate("/hesap-olustur")}
             >
               Sohbete Başla
