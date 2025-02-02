@@ -100,7 +100,7 @@ src/
 <ol>
   <li>Projeyi <a href="https://github.com/omercikan/sebchat/fork" target="_blank">fork</a> edin</li>
   <li>Yeni bir branch oluşturun: <code>git switch -c feature-name</code></li>
-  <li>Yaptığınız değişiklikleri commit edin: <code>git commit -am 'Add new feature'</code></li>
+  <li>Yaptığınız değişiklikleri commit edin: <code>git commit -m 'Add new feature'</code></li>
   <li>Değişikliklerinizi GitHub'a push edin: <code>git push origin feature-name</code></li>
   <li>Pull request açarak katkınızı paylaşın</li>
 </ol>
