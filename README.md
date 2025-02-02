@@ -89,7 +89,7 @@ src/
 </pre>
 
 <h2>📄 Lisans</h2>
-<p>Bu proje MIT Lisansı ile lisanslanmıştır. Detaylar için <a href="https://opensource.org/licenses/MIT" target="_blank">MIT Lisansı'</a>na bakabilirsiniz.</p>
+<p>Bu proje MIT Lisansı ile lisanslanmıştır. Detaylar için <a href="https://github.com/omercikan/sebchat?tab=MIT-1-ov-file#readme" target="_blank">MIT Lisansı'</a>na bakabilirsiniz.</p>
 
 <h2>💬 Geri Bildirim & Hata Bildirimi</h2>
 <p>Projede herhangi bir hata veya eksiklik fark ederseniz, lütfen <a href="https://github.com/omercikan/sebchat/issues" target="_blank">GitHub Issues</a> sayfasını kullanarak bildirimde bulunun.</p>
