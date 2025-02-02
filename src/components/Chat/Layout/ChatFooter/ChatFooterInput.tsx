@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import AuthInput from "../../../Utils/AuthInput";
 
 type ChatFooterInputProps = {

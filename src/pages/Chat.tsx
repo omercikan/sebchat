@@ -21,8 +21,10 @@ const Chat: React.FC = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
+  console.log(user)
+
   useEffect(() => {
-    if (!user && !isLoading) {
+    if (!user) {
       navigate("/", { replace: true });
     }
   }, [navigate, user]);

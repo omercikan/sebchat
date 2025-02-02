@@ -1,10 +1,6 @@
 import React from "react";
 import ProfilePhoto from "../../../assets/images/profile.png";
 
-const userPhoto =
-  localStorage.getItem("userPhoto") &&
-  JSON.parse(localStorage.getItem("userPhoto") || "[]");
-
 type ChatHeaderProps = {
   name: string | undefined;
   surname: string | undefined;
@@ -12,6 +8,10 @@ type ChatHeaderProps = {
 };
 
 const ChatHeader: React.FC<ChatHeaderProps> = ({ name, surname, setPanel }) => {
+  const userPhoto =
+    localStorage.getItem("userPhoto") &&
+    JSON.parse(localStorage.getItem("userPhoto") || "[]");
+
   return (
     <header className="bg-[#0F1828] py-4">
       <div className="w-[90%] mx-auto">
