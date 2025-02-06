@@ -2,9 +2,10 @@ import React, { useCallback, useEffect, useState } from "react";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import ProfileImage from "../../assets/images/profile.png";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebaseConfig";
+import { auth, db } from "../../firebaseConfig";
 import { updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
@@ -14,6 +15,22 @@ const Profile: React.FC = () => {
     name: "",
     surname: "",
   });
+
+  const addUserToUsersCollection = async () => {
+    await addDoc(collection(db, "users"), {
+      userId: auth.currentUser?.uid,
+      userName: userInfo.name,
+      userSurname: userInfo.surname,
+      userProfilPhoto: userPhoto,
+      timeInformation: new Date(
+        Timestamp.now().seconds * 1000
+      ).toLocaleTimeString("tr"),
+      registeredTime: new Date(
+        Timestamp.now().seconds * 1000
+      ).toLocaleDateString("tr"),
+      serverTime: JSON.stringify(Timestamp.fromDate(new Date())),
+    });
+  };
 
   const handleSetProfile = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,12 +46,12 @@ const Profile: React.FC = () => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const image = e.target.files?.[0];
 
-      if(image) {
-        const reader = new FileReader()
+      if (image) {
+        const reader = new FileReader();
         reader.onloadend = () => {
-            const base64Image = reader.result as string;
-            setUserPhoto(base64Image)
-        }
+          const base64Image = reader.result as string;
+          setUserPhoto(base64Image);
+        };
         reader.readAsDataURL(image);
       }
     },
@@ -42,27 +59,33 @@ const Profile: React.FC = () => {
   );
 
   useEffect(() => {
-    if(userPhoto) {
-        localStorage.setItem("userPhoto", JSON.stringify(userPhoto));
+    if (userPhoto) {
+      localStorage.setItem("userPhoto", JSON.stringify(userPhoto));
     }
-  }, [userPhoto])
+  }, [userPhoto]);
 
   useEffect(() => {
     const storedUserPhoto = localStorage.getItem("userPhoto");
-    if(storedUserPhoto) {
-        setUserPhoto(JSON.parse(storedUserPhoto));
+    if (storedUserPhoto) {
+      setUserPhoto(JSON.parse(storedUserPhoto));
     }
-  }, [])
+  }, []);
 
-  const handleUpdateUser = useCallback( async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleUpdateUser = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
 
-    if(user) {
-        await updateProfile(user, { displayName: `${userInfo.name} ${userInfo.surname}` })
-        navigate("/sohbet")
-    }
+      if (user) {
+        await updateProfile(user, {
+          displayName: `${userInfo.name} ${userInfo.surname}`,
+        });
 
-  }, [user, userInfo, navigate])
+        await addUserToUsersCollection();
+        navigate("/sohbet");
+      }
+    },
+    [user, userInfo, navigate]
+  );
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
@@ -112,11 +135,11 @@ const Profile: React.FC = () => {
             onChange={handleSetProfile}
           />
 
-          <button 
-                className="bg-[#375FFF] text-[#F7F7FC] mt-16 w-[400px] max-[600px]:w-[380px] max-[400px]:w-[90%] py-4 rounded-[30px] max-[350px]:px-20 disabled:bg-gray-500     
+          <button
+            className="bg-[#375FFF] text-[#F7F7FC] mt-16 w-[400px] max-[600px]:w-[380px] max-[400px]:w-[90%] py-4 rounded-[30px] max-[350px]:px-20 disabled:bg-gray-500     
                 disabled:cursor-not-allowed cursor-pointer"
-                disabled={!userInfo.name}
-            >
+            disabled={!userInfo.name}
+          >
             Kaydet
           </button>
         </form>

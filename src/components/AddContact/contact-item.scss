@@ -1,0 +1,21 @@
+.contact-item {
+  transition: all 0.3s ease;
+
+  &:nth-child(odd) {
+    border-top: 1px solid #1c2a3a;
+    border-bottom: 1px solid #1c2a3a;
+  }
+
+  &:last-child {
+    border-bottom: 1px solid #1c2a3a;
+  }
+
+  &:hover {
+    background-color: #375fff;
+    border-radius: 8px;
+
+    .registered-time-text {
+      color: white;
+    }
+  }
+}

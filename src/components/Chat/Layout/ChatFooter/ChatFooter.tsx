@@ -42,9 +42,9 @@ const ChatFooter: React.FC<ChatFooterProps> = ({ chatContainerRef }) => {
   );
 
   return (
-    <footer className="fixed left-0 bottom-0 w-full pb-[env(safe-area-inset-bottom)]">
+    <footer className="w-[calc(100%)] max-md:w-full pb-[env(safe-area-inset-bottom)]">
       <form onSubmit={handleAddMessage}>
-        <div className="w-full flex justify-center gap-5 p-3 bg-[#0F1828]">
+        <div className="w-full flex justify-center gap-5 p-2 bg-[#0F1828]">
           <ChatFooterInput
             key={"ChatFooterInput"}
             message={message}
