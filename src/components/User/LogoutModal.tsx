@@ -3,6 +3,10 @@ import { CSSTransition } from "react-transition-group";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { changePanelState } from "../../redux/slices/accountSettingPanel";
+import { setChatId } from "../../redux/slices/setChatIdSlice";
 
 type LogoutModalProps = {
   isLogout: boolean;
@@ -14,6 +18,7 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
   setLogoutModal,
 }) => {
   const logoutModalRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch<AppDispatch>();
 
   const closeLogoutModal = () => {
     setLogoutModal(false);
@@ -26,9 +31,11 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
     });
 
     setLogoutModal(false)
-
+    
     setTimeout(() => {
       signOut(auth);
+      dispatch(changePanelState(false));
+      dispatch(setChatId(""))
     }, 3000);
   };
 
@@ -44,7 +51,7 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
         <div
           className={`${
             isLogout && "backdrop-blur-md"
-          } w-full h-screen fixed left-0 top-0 flex justify-center items-center`}
+          } w-full h-screen fixed left-0 top-0 flex justify-center items-center z-50`}
         >
           <div
             className="bg-[#0f1828] shadow-[#0A101F] shadow-2xl drop-shadow-2xl px-6 pt-[22px] pb-5 w-[500px] max-sm:w-[95%] rounded-lg"

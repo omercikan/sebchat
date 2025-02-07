@@ -11,6 +11,9 @@ import { updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
 import LogoutModal from "./LogoutModal";
 import ProfileImage from "../../assets/images/profile.png";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { changePanelState } from "../../redux/slices/accountSettingPanel";
 
 const userPhotoStorage =
   localStorage.getItem("userPhoto") &&
@@ -19,15 +22,11 @@ const userPhotoStorage =
 type UserAccountSettingProps = {
   name: string | undefined;
   surname: string | undefined;
-  panel: boolean;
-  setPanel: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
   name,
   surname,
-  panel,
-  setPanel,
 }) => {
   const [user] = useAuthState(auth);
   const [isEditModeName, setIsEditModeName] = useState(false);
@@ -42,6 +41,8 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
     name: name,
     surname: surname ? surname : "Soyadı belirtilmemiş",
   });
+  const { panel } = useSelector((state: RootState) => state.accountSettingPanel);
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleUpdateInput = (e: React.MouseEvent<SVGElement>) => {
     const inputTargetName =
@@ -140,6 +141,10 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
     setLogoutModal(true);
   };
 
+  const handleClosePanel = () => {
+    dispatch(changePanelState(false));
+  }
+
   useEffect(() => {
     if (userPhoto) {
       localStorage.setItem("userPhoto", JSON.stringify(userPhoto));
@@ -159,11 +164,11 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
         <CSSTransition
           in={panel}
           classNames="account-modal"
-          timeout={400}
+          timeout={380}
           unmountOnExit
           nodeRef={accountModalRef}
         >
-          <div className="fixed right-0 top-0 backdrop-blur-sm max-sm:backdrop-blur-none w-full h-full">
+          <div className="fixed right-0 top-0 backdrop-blur-sm max-sm:backdrop-blur-none w-full h-full z-30">
             <CSSTransition
               in={panel}
               classNames="account-modal-close"
@@ -180,7 +185,7 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
                     color="F7F7FC"
                     size={30}
                     cursor="pointer"
-                    onClick={() => setPanel(false)}
+                    onClick={handleClosePanel}
                   />
                 </div>
               </div>
@@ -197,7 +202,7 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
                     color="gray"
                     cursor="pointer"
                     className="stroke-[10px] stroke-[gray] max-sm:block sm:hidden"
-                    onClick={() => setPanel(false)}
+                    onClick={handleClosePanel}
                   />
 
                   <h1 className="text-[#F7F7FC] text-[22px] font-medium">

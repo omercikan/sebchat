@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { HiMiniChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
 import SidebarItem from "./SidebarItem";
 import { FiPlus } from "react-icons/fi";
@@ -8,24 +8,36 @@ import {
   changeAddContactState,
   changeChatListState,
 } from "../../redux/slices/TabsSlice";
+import { changeSidebarTab } from "../../redux/slices/SidebarActiveSlice";
+import { setChatId } from "../../redux/slices/setChatIdSlice";
+import ProfilePhoto from "../../assets/images/profile.png";
+import { changePanelState } from "../../redux/slices/accountSettingPanel";
 
 type SidebarProps = {
   name: string | undefined;
+  surname: string | undefined;
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ name }) => {
+const Sidebar: React.FC<SidebarProps> = ({ name, surname }) => {
+  const userPhoto =
+    localStorage.getItem("userPhoto") &&
+    JSON.parse(localStorage.getItem("userPhoto") || "[]");
   const nameFirstChar = name?.charAt(0);
-  const [keyword, setKeyword] = useState<string>("Ekle");
   const dispatch = useDispatch<AppDispatch>();
 
+  useEffect(() => {
+    dispatch(changeSidebarTab("Ekle"));
+  }, [dispatch]);
+
   const handleChat = () => {
-    setKeyword("Sohbet");
+    dispatch(changeSidebarTab("Sohbet"));
     dispatch(changeChatListState());
   };
 
   const handleAddContact = () => {
-    setKeyword("Ekle");
+    dispatch(changeSidebarTab("Ekle"));
     dispatch(changeAddContactState());
+    dispatch(setChatId(""));
   };
 
   return (
@@ -41,7 +53,6 @@ const Sidebar: React.FC<SidebarProps> = ({ name }) => {
           item={<HiMiniChatBubbleOvalLeftEllipsis />}
           text="Sohbet"
           key={"SidebarChat"}
-          keyword={keyword}
           onClick={handleChat}
         />
 
@@ -49,9 +60,16 @@ const Sidebar: React.FC<SidebarProps> = ({ name }) => {
           item={<FiPlus />}
           text="Ekle"
           key={"SidebarAddUser"}
-          keyword={keyword}
           onClick={handleAddContact}
         />
+
+        <div className="cursor-pointer self-center max-md:self-start place-content-end max-md:ms-auto max-md:mt-2 h-full" onClick={() => dispatch(changePanelState(true))}>
+          <img
+            src={userPhoto ? userPhoto : ProfilePhoto}
+            alt={`${name} ${surname}`}
+            className="w-[35px] h-[35px] object-cover rounded-full mx-auto border-1 border-dashed border-gray-600"
+          />
+        </div>
       </ul>
     </React.Fragment>
   );

@@ -1,32 +1,19 @@
 import React from "react";
-import ProfilePhoto from "../../../assets/images/profile.png";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
-type ChatHeaderProps = {
-  name: string | undefined;
-  surname: string | undefined;
-  setPanel: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const ChatHeader: React.FC<ChatHeaderProps> = ({ name, surname, setPanel }) => {
-  const userPhoto =
-    localStorage.getItem("userPhoto") &&
-    JSON.parse(localStorage.getItem("userPhoto") || "[]");
-
+const ChatHeader: React.FC = () => {
+  const { activeChatId } = useSelector((state: RootState) => state.setChatId);
+  const { chatList } = useSelector((state: RootState) => state.chatListSlice);
+  const activeChat = chatList.find((chat) => chat.chatId == activeChatId);
+ 
   return (
-    <header className="bg-[#0F1828] py-4">
+    <header className="bg-[#0F1828] py-5.5">
       <div className="w-[90%] mx-auto">
         <div className="flex items-center justify-between">
           <strong className="text-[#F7F7FC] font-medium">
-            Siz {name && surname ? `(${name} ${surname})` : `(${name})`}
+            {activeChatId.length && activeChat?.userOne.userName && activeChat.userOne.userSurname ? `${activeChat?.userOne.userName} ${activeChat.userOne.userSurname}` : `${activeChat?.userOne.userName ? activeChat?.userOne.userName : ""}`}
           </strong>
-
-          <div className="cursor-pointer" onClick={() => setPanel(true)}>
-            <img
-              src={userPhoto ? userPhoto : ProfilePhoto}
-              alt={`${name} ${surname}`}
-              className="w-[35px] h-[35px] object-cover rounded-full"
-            />
-          </div>
         </div>
       </div>
     </header>
