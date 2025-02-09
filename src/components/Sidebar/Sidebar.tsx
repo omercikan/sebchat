@@ -63,11 +63,11 @@ const Sidebar: React.FC<SidebarProps> = ({ name, surname }) => {
           onClick={handleAddContact}
         />
 
-        <div className="cursor-pointer self-center max-md:self-start place-content-end max-md:ms-auto max-md:mt-2 h-full" onClick={() => dispatch(changePanelState(true))}>
+        <div className="cursor-pointer self-center max-md:self-start place-content-end max-md:ms-auto h-full" onClick={() => dispatch(changePanelState(true))}>
           <img
             src={userPhoto ? userPhoto : ProfilePhoto}
             alt={`${name} ${surname}`}
-            className="w-[35px] h-[35px] object-cover rounded-full mx-auto border-1 border-dashed border-gray-600"
+            className="w-[35px] h-[35px] max-md:w-[40px] max-md:h-[40px] object-cover rounded-full mx-auto border-1 border-dashed border-gray-600"
           />
         </div>
       </ul>

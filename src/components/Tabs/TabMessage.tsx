@@ -25,7 +25,7 @@ const TabMessage: React.FC = () => {
         />
       </figure>
 
-      <p className="text-[#4A90E2] text-center w-[413px]">
+      <p className="text-[#4A90E2] text-center w-[413px] max-lg:w-auto">
         {tabMessages[activeTab as keyof typeof tabMessages]}
       </p>
     </div>

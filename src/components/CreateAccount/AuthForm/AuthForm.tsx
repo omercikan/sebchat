@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
   User,
 } from "firebase/auth";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import toast from "react-hot-toast";
 import { auth } from "../../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
@@ -16,13 +16,25 @@ type AuthFormProps = {
   login: boolean;
   setLogin: React.Dispatch<React.SetStateAction<boolean>>;
   user: User | null | undefined;
+  inputs: {
+    email: string;
+    password: string;
+  };
+  setInputs: React.Dispatch<
+    React.SetStateAction<{
+      email: string;
+      password: string;
+    }>
+  >;
 };
 
-const AuthForm: React.FC<AuthFormProps> = ({ login, setLogin, user }) => {
-  const [inputs, setInputs] = useState({
-    email: "",
-    password: "",
-  });
+const AuthForm: React.FC<AuthFormProps> = ({
+  login,
+  setLogin,
+  user,
+  inputs,
+  setInputs,
+}) => {
   const navigate = useNavigate();
 
   const handleCreateUser = useCallback(
@@ -49,10 +61,11 @@ const AuthForm: React.FC<AuthFormProps> = ({ login, setLogin, user }) => {
             inputs.email,
             inputs.password
           );
+
           if (userCredential) {
+            await sendEmailVerification(userCredential.user);
             toast.success("Doğrulama e-postası gönderildi");
           }
-          await sendEmailVerification(userCredential.user);
         } catch (error: any) {
           switch (error.code) {
             case "auth/weak-password":
