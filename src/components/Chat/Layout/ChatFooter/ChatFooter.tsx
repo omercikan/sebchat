@@ -10,7 +10,9 @@ type ChatFooterProps = {
 
 const ChatFooter: React.FC<ChatFooterProps> = ({ chatContainerRef }) => {
   const [message, setMessage] = useState<string>("");
-  const messageInputRef = useRef<HTMLInputElement>(null);
+  const messageInputRef = useRef<HTMLTextAreaElement | null>(
+    null
+  );
 
   const handleAddMessage = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,7 +44,7 @@ const ChatFooter: React.FC<ChatFooterProps> = ({ chatContainerRef }) => {
   );
 
   return (
-    <footer className="w-[calc(100%)] max-md:w-full pb-[env(safe-area-inset-bottom)]">
+    <footer className="max-md:fixed max-md:bottom-0 w-[calc(100%)] max-md:w-full">
       <form onSubmit={handleAddMessage}>
         <div className="w-full flex justify-center gap-5 p-2 bg-[#0F1828]">
           <ChatFooterInput
@@ -50,6 +52,15 @@ const ChatFooter: React.FC<ChatFooterProps> = ({ chatContainerRef }) => {
             message={message}
             setMessage={setMessage}
             messageInputRef={messageInputRef}
+          />
+
+          <textarea
+            name="textarea"
+            placeholder="Bir mesaj yazın"
+            className="bg-[#152033] text-[#F7F7FC] p-2 outline-none rounded-md text-sm placeholder:text-[#F7F7FC] w-full resize-none overflow-hidden md:hidden"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            ref={messageInputRef}
           />
 
           <ChatFooterButton />

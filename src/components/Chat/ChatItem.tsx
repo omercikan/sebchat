@@ -15,10 +15,10 @@ const ChatItem: React.FC<ChatItemProps> = ({ user }) => {
           className={`${
             userId == auth.currentUser?.uid
               ? `bg-[#375FFF] float-end`
-              : "bg-[#0F1828] float-left"
+              : "bg-[#0F1828] float-left !rounded-2xl !rounded-tl-none"
           } p-[10px] flex max-md:flex-col max-md:gap-0 items-end justify-between gap-5 rounded-2xl rounded-br-none ${
-            message.length > 100
-              ? "w-[500px] max-md:w-auto"
+            message?.length > 100
+              ? "w-[500px] max-md:w-auto" 
               : "w-max max-md:w-auto"
           }`}
         >
