@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Chat } from "../types";
+import { Chat } from "../../types";
 
 type initialStateType = {
   chat: Chat[];

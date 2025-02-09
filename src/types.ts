@@ -16,8 +16,29 @@ export interface UserContactList {
   userName: string;
   userSurname: string;
   userProfilPhoto: string;
+  userEmailVerified: boolean;
 }
 
 export interface ChatItemProps {
   user: Chat;
+}
+
+export interface chatListInterface {
+  chatId: string;
+  messages: [];
+  serverTime: string;
+  timeInformation: string;
+  userOne: UserContactList;
+  userTwo: {
+    displayName: string;
+    metadata: [
+      {
+        createdAt: string;
+        creationTime: string;
+        lastLoginAt: string;
+        lastSignInTime: string;
+      }
+    ];
+    userId: string;
+  };
 }

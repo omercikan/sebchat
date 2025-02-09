@@ -17,10 +17,11 @@ const Profile: React.FC = () => {
   });
 
   const addUserToUsersCollection = async () => {
-    await addDoc(collection(db, "users"), {
+    await addDoc(collection(db, import.meta.env.REACT_APP_SECRET_HASH), {
       userId: auth.currentUser?.uid,
       userName: userInfo.name,
       userSurname: userInfo.surname,
+      userEmailVerified: auth.currentUser?.emailVerified,
       userProfilPhoto: userPhoto,
       timeInformation: new Date(
         Timestamp.now().seconds * 1000
