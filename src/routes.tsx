@@ -5,6 +5,7 @@ import Loading from "./components/Loading.tsx";
 const GettingStarted = React.lazy(() => import("./pages/GettingStarted.tsx"));
 const CreateAccount = React.lazy(() => import("./pages/CreateAccount.tsx"));
 const Chat = React.lazy(() => import("./pages/Chat.tsx"));
+const NotFound = React.lazy(() => import("./components/NotFound/NotFound.tsx"));
 
 export const MainRouter = createBrowserRouter([
   {
@@ -29,6 +30,14 @@ export const MainRouter = createBrowserRouter([
     element: (
       <Suspense fallback={<Loading />}>
         <Chat />
+      </Suspense>
+    ),
+  },
+  {
+    path: "*",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <NotFound />
       </Suspense>
     ),
   },
