@@ -5,6 +5,7 @@ import { IoChevronBackOutline } from "react-icons/io5";
 import { changeSidebarTab } from "../../../redux/slices/SidebarActiveSlice";
 import { changeChatListState } from "../../../redux/slices/TabsSlice";
 import { setChatId } from "../../../redux/slices/setChatIdSlice";
+import { auth } from "../../../firebaseConfig";
 
 const ChatHeader: React.FC = () => {
   const { activeChatId } = useSelector((state: RootState) => state.setChatId);
@@ -15,8 +16,12 @@ const ChatHeader: React.FC = () => {
   const handleBackToChatList = () => {
     dispatch(changeSidebarTab("Sohbet"));
     dispatch(changeChatListState());
-    dispatch(setChatId(""))
+    dispatch(setChatId(""));
   };
+
+  const userOne = `${activeChat?.userOne.userName} ${activeChat?.userOne.userSurname}`;
+  const userTwo = activeChat?.userTwo.displayName;
+  const againstUser = auth.currentUser?.displayName != userOne && userTwo ? userOne : userTwo;
 
   return (
     <header className="bg-[#0F1828] max-md:fixed max-md:left-0 max-md:top-0 max-md:w-full h-[65px] flex flex-col justify-center">
@@ -27,15 +32,7 @@ const ChatHeader: React.FC = () => {
           </div>
 
           <strong className="text-[#F7F7FC] font-medium">
-            {activeChatId.length &&
-            activeChat?.userOne.userName &&
-            activeChat.userOne.userSurname
-              ? `${activeChat?.userOne.userName} ${activeChat.userOne.userSurname}`
-              : `${
-                  activeChat?.userOne.userName
-                    ? activeChat?.userOne.userName
-                    : ""
-                }`}
+            {activeChatId.length && againstUser}
           </strong>
         </div>
       </div>
