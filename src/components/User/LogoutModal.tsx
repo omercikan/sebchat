@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
-import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -25,17 +24,26 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
   };
 
   const handleExitAccount = () => {
+    if (!auth) return;
+
     toast.success("Çıkış yapılıyor..", {
-        id: "logout-loading",
-        duration: 3000
+      id: "logout-loading",
+      duration: 3000,
     });
 
-    setLogoutModal(false)
-    
+    setLogoutModal(false);
+
     setTimeout(() => {
-      signOut(auth);
-      dispatch(changePanelState(false));
-      dispatch(setChatId(""))
+      auth.signOut()
+        .then(() => {
+          dispatch(changePanelState(false));
+          dispatch(setChatId(""));
+        })
+        .catch(() =>
+          toast.error(
+            "Çıkış işlemi sırasında bir sorun oluştu. Lütfen tekrar deneyin."
+          )
+        );
     }, 3000);
   };
 
