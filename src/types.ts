@@ -1,14 +1,50 @@
 export interface Chat {
-  id: string;
-  message: string;
-  clientTime: string;
-  ServerTime: string;
+  chatId: string;
+  userOne: User;
+  userTwo: User;
+  userOneId: string;
+  userTwoId: string | undefined;
+  participants: Participant[];
+  messages: Message[];
+  createdAt: string;
+}
+
+export interface User {
+  displayName: string | null;
+  metadata: UserMetadata;
+  userId: string | undefined;
+}
+
+export interface UserMetadata {
+  createdAt?: string;
+  creationTime?: string;
+  lastLoginAt?: string;
+  lastSignInTime?: string;
+  serverTime?: string;
+  timeInformation?: string;
+  userEmailVerified?: boolean;
+}
+
+export interface Participant {
+  userOne?: UserDetails;
+  userTwo?: UserDetails;
+}
+
+export interface UserDetails {
+  displayName: string;
+  metadata: UserMetadata;
   userId: string;
-  timeInformation: string;
+}
+
+export interface Message {
+  sender: UserDetails;
+  message: string;
+  timeStamp: string;
 }
 
 export interface UserContactList {
   id: string;
+  admin: boolean;
   registeredTime: string;
   serverTime: string;
   timeInformation: string;
@@ -23,22 +59,43 @@ export interface ChatItemProps {
   user: Chat;
 }
 
-export interface chatListInterface {
+export interface ChatListInterface {
   chatId: string;
-  messages: [];
+  id: string;
+  messages: MessageInterface[];
+  otherUser: {
+    admin: boolean;
+    displayName: string;
+    metadata: {
+      createdAt: string;
+      creationTime: string;
+      lastLoginAt: string;
+      lastSignInTime: string;
+    };
+    userId: string;
+  };
   serverTime: string;
   timeInformation: string;
   userOne: UserContactList;
   userTwo: {
+    admin: boolean;
     displayName: string;
-    metadata: [
-      {
-        createdAt: string;
-        creationTime: string;
-        lastLoginAt: string;
-        lastSignInTime: string;
-      }
-    ];
+    metadata: {
+      createdAt: string;
+      creationTime: string;
+      lastLoginAt: string;
+      lastSignInTime: string;
+    };
     userId: string;
   };
+}
+
+export interface MessageInterface {
+  currentTime: string;
+  message: string;
+  sender: {
+    displayName: string;
+    userId: string;
+  };
+  timestamp: number;
 }

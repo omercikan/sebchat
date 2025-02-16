@@ -1,7 +1,13 @@
 import React, { memo, useEffect, useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebaseConfig";
-import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { addMessage } from "../redux/slices/chatSlice";
@@ -25,7 +31,9 @@ const Chat: React.FC = () => {
   const navigate = useNavigate();
   const { activeChatId } = useSelector((state: RootState) => state.setChatId);
   const { chatList } = useSelector((state: RootState) => state.tabsSlice);
-  const { activeTab } = useSelector((state: RootState) => state.sidebarActiveSlice);
+  const { activeTab } = useSelector(
+    (state: RootState) => state.sidebarActiveSlice
+  );
 
   useEffect(() => {
     if (!user) {
@@ -34,8 +42,14 @@ const Chat: React.FC = () => {
   }, [navigate, user]);
 
   useEffect(() => {
-    const q = query(collection(db, "chat"), orderBy("serverTime"));
-    onSnapshot(q, (querySnapshot) => {
+    if (!auth?.currentUser?.uid) return;
+
+    const q = query(
+      collection(db, import.meta.env.REACT_APP_SECRET_KEY),
+      where("participants", "array-contains", auth?.currentUser?.uid),
+      orderBy("createdAt")
+    );
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const messages = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -43,14 +57,9 @@ const Chat: React.FC = () => {
 
       dispatch(addMessage(messages));
     });
-  }, [dispatch]);
 
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
-    }
-  }, [chatContainerRef]);
+    return () => unsubscribe();
+  }, [dispatch]);
 
   if (isLoading) {
     return <Loading />;
@@ -67,8 +76,12 @@ const Chat: React.FC = () => {
           <Sidebar name={name} surname={surname} />
         </div>
 
-        {activeChatId.length > 0 && chatList && (
-          <div className={`main-chat-area flex flex-col flex-[75%] ${activeTab == "Ekle" ? "z-0": "z-30"}`}>
+        {activeChatId?.length > 0 && chatList && (
+          <div
+            className={`main-chat-area flex flex-col flex-[75%] ${
+              activeTab == "Ekle" ? "z-0" : "z-30"
+            }`}
+          >
             <ChatHeader key={"ChatHeader"} />
 
             <ChatBody chatContainerRef={chatContainerRef} key={"ChatBody"} />
