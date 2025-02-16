@@ -3,10 +3,12 @@ import { UserContactList } from "../../types";
 import { BsPlusCircle } from "react-icons/bs";
 import { auth, db } from "../../firebaseConfig";
 import {
-  addDoc,
   collection,
+  doc,
+  getDoc,
   onSnapshot,
   query,
+  setDoc,
   Timestamp,
   where,
 } from "firebase/firestore";
@@ -14,54 +16,99 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { addChatList } from "../../redux/slices/chatListSlice";
 import { MdOutlineVerifiedUser } from "react-icons/md";
-import ProfilPhoto from "../../assets/images/profile.png"
+import ProfilPhoto from "../../assets/images/profile.png";
 
 type ContactItemProps = {
   user: UserContactList;
 };
 
 const ContactItem: React.FC<ContactItemProps> = ({ user }) => {
-  const { userProfilPhoto, userName, userSurname, registeredTime, userId } =
-    user;
+  const {
+    userProfilPhoto,
+    userName,
+    userSurname,
+    registeredTime,
+    userId,
+    admin,
+  } = user;
   const currentUserDisplayName = auth.currentUser?.displayName;
   const dispatch = useDispatch<AppDispatch>();
   const { chatList } = useSelector((state: RootState) => state.chatListSlice);
-  const chatId = userId.concat(`_${auth.currentUser?.uid}`);
-  const searchInChatList = chatList.find((chat) => chat.chatId == chatId);
+  const chatId = [userId, auth.currentUser?.uid].sort().join("_");
+  const searchInChatList = chatList.find((chat) => chat.chatId === chatId);
+  const currentUser = auth.currentUser;
 
   const addUserToChat = useCallback(async () => {
-    await addDoc(collection(db, import.meta.env.REACT_APP_SECRET_KEY), {
-      chatId: chatId,
-      userOneId: user.userId,
-      userTwoId: auth.currentUser?.uid,
-      userOne: user,
-      userTwo: {
-        displayName: auth.currentUser?.displayName,
-        metadata: { ...auth.currentUser?.metadata },
-        userId: auth.currentUser?.uid,
-      },
-      messages: [],
-      timeInformation: new Date(
-        Timestamp.now().seconds * 1000
-      ).toLocaleTimeString("tr"),
-      serverTime: JSON.stringify(Timestamp.fromDate(new Date())),
-    });
-  }, [user, chatId]);
+    if (!currentUser || !user) return;
+
+    const docRef = doc(db, import.meta.env.REACT_APP_SECRET_KEY, chatId);
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      const newChatData = {
+        chatId,
+        userOne: user,
+        userTwo: {
+          displayName: auth.currentUser?.displayName,
+          metadata: { ...auth.currentUser?.metadata },
+          userId: auth.currentUser?.uid,
+        },
+        userOneId: user.userId,
+        userTwoId: currentUser?.uid,
+        participants: [currentUser?.uid, user.userId],
+        messages: [],
+        lastUpdated: Timestamp.now().toMillis(),
+        createdAt: Timestamp.now().toDate().toString(),
+      };
+
+      await setDoc(docRef, newChatData, { merge: true });
+
+      const userOneChatRef = doc(
+        db,
+        "users",
+        currentUser?.uid,
+        "chats",
+        chatId
+      );
+      const userTwoChatRef = doc(db, import.meta.env.REACT_APP_SECRET_HASH, user.userId, "chats", chatId);
+
+      await Promise.all([
+        setDoc(userOneChatRef, newChatData, { merge: true }),
+        setDoc(userTwoChatRef, newChatData, { merge: true }),
+      ]);
+    }
+  }, [currentUser, user, chatId, db]);
 
   useEffect(() => {
+    if (!auth?.currentUser) return;
+
     const q = query(
-      collection(db, "chats"),
-      where("userTwoId", "==", auth.currentUser?.uid)
+      collection(db, import.meta.env.REACT_APP_SECRET_KEY),
+      where("participants", "array-contains", auth?.currentUser?.uid)
     );
-    onSnapshot(q, (querySnapshot) => {
-      const chatList = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const chatList = querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        const otherUser =
+          data.userOneId === auth.currentUser?.uid
+            ? data.userTwo
+            : data.userOne;
+
+        return {
+          id: doc.id,
+          chatId: data.chatId,
+          otherUser,
+          messages: data.messages,
+          ...data,
+        };
+      });
 
       dispatch(addChatList(chatList));
     });
-  }, []);
+
+    return () => unsubscribe();
+  }, [auth.currentUser, dispatch]);
 
   return (
     <li
@@ -81,12 +128,21 @@ const ContactItem: React.FC<ContactItemProps> = ({ user }) => {
               className="w-[40px] h-[40px] object-cover rounded-full"
             />
 
-            <figcaption className="text-xs text-[#f7f7fc]">
+            <figcaption
+              className={`text-xs text-[#f7f7fc] ${admin && "!text-[#fff]"}`}
+            >
+              {admin && (
+                <span className="text-[#D32F2F] text-xs block">
+                  {admin && "Admin"}
+                </span>
+              )}
               {userId == auth.currentUser?.uid
                 ? currentUserDisplayName
                 : `${userName} ${userSurname}`}{" "}
               <span className="inline-flex">
-                <MdOutlineVerifiedUser color={user.userEmailVerified ? "green" : "red"} />
+                <MdOutlineVerifiedUser
+                  color={user.userEmailVerified ? "green" : "red"}
+                />
               </span>
             </figcaption>
           </div>
