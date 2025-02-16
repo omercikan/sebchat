@@ -1,8 +1,10 @@
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { doc, getDoc, Timestamp, updateDoc } from "firebase/firestore";
 import React, { useCallback, useRef, useState } from "react";
 import { auth, db } from "../../../../firebaseConfig";
 import ChatFooterButton from "./ChatFooterButton";
 import ChatFooterInput from "./ChatFooterInput";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
 
 type ChatFooterProps = {
   chatContainerRef: React.RefObject<HTMLDivElement | null>;
@@ -10,26 +12,44 @@ type ChatFooterProps = {
 
 const ChatFooter: React.FC<ChatFooterProps> = ({ chatContainerRef }) => {
   const [message, setMessage] = useState<string>("");
-  const messageInputRef = useRef<HTMLTextAreaElement | null>(
-    null
-  );
+  const messageInputRef = useRef<HTMLTextAreaElement | null>(null);
+  const { activeChatId } = useSelector((state: RootState) => state.setChatId);
 
   const handleAddMessage = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      if (!auth) return;
+
       messageInputRef.current?.focus();
 
-      if (message.length) {
-        await addDoc(collection(db, "chat"), {
-          userId: auth.currentUser?.uid,
+      if (message.trim().length) {
+        const docRef = doc(
+          db,
+          import.meta.env.REACT_APP_SECRET_KEY,
+          activeChatId
+        );
+
+        const chatSnap = await getDoc(docRef);
+        const chatData = chatSnap.exists() ? chatSnap.data() : { messages: [] };
+
+        const newMessage = {
+          sender: {
+            displayName: auth.currentUser?.displayName,
+            userId: auth.currentUser?.uid,
+          },
           message: message,
+          timeStamp: Timestamp.now().toMillis(),
+          currentTime: new Date(
+            Timestamp.now().seconds * 1000
+          ).toLocaleTimeString("tr"),
+        };
+
+        await updateDoc(docRef, {
+          messages: [...chatData?.messages, newMessage],
+          lastUpdated: Timestamp.now().toMillis(),
           timeInformation: new Date(
             Timestamp.now().seconds * 1000
           ).toLocaleTimeString("tr"),
-          clientTime: new Date(
-            Timestamp.now().seconds * 1000
-          ).toLocaleDateString("tr"),
-          serverTime: JSON.stringify(Timestamp.fromDate(new Date())),
         });
 
         setMessage("");
@@ -40,7 +60,7 @@ const ChatFooter: React.FC<ChatFooterProps> = ({ chatContainerRef }) => {
         }
       }
     },
-    [message]
+    [message, messageInputRef, activeChatId, db, auth]
   );
 
   return (
