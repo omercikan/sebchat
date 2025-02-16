@@ -15,10 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { changePanelState } from "../../redux/slices/accountSettingPanel";
 
-const userPhotoStorage =
-  localStorage.getItem("userPhoto") &&
-  JSON.parse(localStorage.getItem("userPhoto") || "[]");
-
 type UserAccountSettingProps = {
   name: string | undefined;
   surname: string | undefined;
@@ -41,8 +37,14 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
     name: name,
     surname: surname ? surname : "Soyadı belirtilmemiş",
   });
-  const { panel } = useSelector((state: RootState) => state.accountSettingPanel);
+  const { panel } = useSelector(
+    (state: RootState) => state.accountSettingPanel
+  );
   const dispatch = useDispatch<AppDispatch>();
+  const [photoError, setPhotoError] = useState<boolean>(false);
+  const userPhotoStorage =
+    localStorage.getItem("userPhoto") &&
+    JSON.parse(localStorage.getItem("userPhoto") || "[]");
 
   const handleUpdateInput = (e: React.MouseEvent<SVGElement>) => {
     const inputTargetName =
@@ -52,7 +54,7 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
       nameInputRef.current?.focus();
       setIsEditModeName(true);
       setIsEditModeSurname(false);
-      if (isEditModeName && nameInputRef.current?.value.length) {
+      if (isEditModeName && nameInputRef.current?.value?.length) {
         setIsEditModeName(false);
         if (user && user.displayName?.split(" ")[0] !== inputs.name) {
           updateProfile(user, {
@@ -123,15 +125,29 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const image = e.target.files?.[0];
 
-      if (image) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const base64Image = reader.result as string;
-          setUserPhoto(base64Image);
-          localStorage.setItem("userPhoto", JSON.stringify(base64Image));
-          toast.success("Profil fotoğrafınız başarıyla güncellendi.");
-        };
-        reader.readAsDataURL(image);
+      try {
+        if (image) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const base64Image = reader.result as string;
+            setUserPhoto(base64Image);
+            if (base64Image?.length > 5 * 1024 * 1024) {
+              setPhotoError(true);
+              toast.error(
+                "Resim boyutu çok büyük. Lütfen 5MB'tan küçük bir dosya seçin."
+              );
+            } else {
+              setPhotoError(false);
+              localStorage.setItem("userPhoto", JSON.stringify(base64Image));
+              toast.success("Profil fotoğrafınız başarıyla güncellendi.");
+            }
+          };
+          reader.readAsDataURL(image);
+        }
+      } catch (error) {
+        toast.error(
+          "Resim boyutu çok büyük. Lütfen 5MB'tan küçük bir dosya seçin."
+        );
       }
     },
     []
@@ -143,13 +159,13 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
 
   const handleClosePanel = () => {
     dispatch(changePanelState(false));
-  }
+  };
 
   useEffect(() => {
-    if (userPhoto) {
+    if (userPhoto && !photoError) {
       localStorage.setItem("userPhoto", JSON.stringify(userPhoto));
     }
-  }, [userPhoto]);
+  }, [userPhoto, photoError]);
 
   useEffect(() => {
     const storedUserPhoto = localStorage.getItem("userPhoto");
@@ -219,12 +235,19 @@ const UserAccountSetting: React.FC<UserAccountSettingProps> = ({
                   >
                     {userPhoto && (
                       <img
-                        src={userPhoto ? userPhoto : userPhotoStorage}
+                        src={
+                          userPhotoStorage?.length
+                            ? userPhotoStorage
+                            : ProfileImage
+                        }
                         alt={`${user?.displayName?.trim()}`}
-                        className="rounded-full mx-auto w-full h-full object-cover opacity-50 border-[2px] border-dashed border-[#fff]"
+                        className={`rounded-full mx-auto w-full h-full object-cover opacity-50 border-[2px] border-dashed border-[#fff] ${
+                          !userPhotoStorage?.length && "p-3"
+                        }`}
                         style={{
-                          backgroundImage:
-                            "linear-gradient(rgba(255, 255, 255, .3), rgba(0, 0, 0, .3))",
+                          backgroundImage: userPhotoStorage?.length
+                            ? "linear-gradient(rgba(255, 255, 255, .3), rgba(0, 0, 0, .3))"
+                            : "",
                         }}
                       />
                     )}
