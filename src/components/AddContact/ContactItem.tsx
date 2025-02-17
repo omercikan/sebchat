@@ -47,6 +47,7 @@ const ContactItem: React.FC<ContactItemProps> = ({ user }) => {
     if (!docSnap.exists()) {
       const newChatData = {
         chatId,
+        userOneDisplayName: `${user.userName} ${user.userSurname}`,
         userOne: user,
         userTwo: {
           displayName: auth.currentUser?.displayName,
@@ -125,7 +126,7 @@ const ContactItem: React.FC<ContactItemProps> = ({ user }) => {
             <img
               src={userProfilPhoto ? userProfilPhoto : ProfilPhoto}
               alt={`${userName} ${userSurname}`}
-              className="w-[40px] h-[40px] object-cover rounded-full"
+              className={`w-[40px] h-[40px] object-cover rounded-full ${ProfilPhoto && "border border-gray-500 border-dotted"}`}
             />
 
             <figcaption

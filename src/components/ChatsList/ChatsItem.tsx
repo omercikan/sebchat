@@ -16,7 +16,11 @@ import {
 } from "firebase/firestore";
 import { addChatList } from "../../redux/slices/chatListSlice";
 
-const ChatsItem: React.FC<{ chat: ChatListInterface }> = ({ chat }) => {
+type ChatsItemProps = {
+  chat: ChatListInterface;
+};
+
+const ChatsItem: React.FC<ChatsItemProps> = ({ chat }) => {
   const dispatch = useDispatch<AppDispatch>();
   const otherUser = chat.otherUser;
   const [userProfile, setUserProfile] = useState<{
@@ -24,7 +28,7 @@ const ChatsItem: React.FC<{ chat: ChatListInterface }> = ({ chat }) => {
     userName?: string;
     userSurname?: string;
   }>({
-    userProfilPhoto: ProfilPhoto,
+    userProfilPhoto: chat.userOne.userProfilPhoto || ProfilPhoto,
     userName: "Bilinmeyen",
     userSurname: "Kullanıcı",
   });
@@ -41,13 +45,19 @@ const ChatsItem: React.FC<{ chat: ChatListInterface }> = ({ chat }) => {
     if (!otherUser?.userId) return;
 
     const fetchUserProfile = async () => {
-      const userRef = doc(db, import.meta.env.REACT_APP_SECRET_HASH, otherUser.userId);
+      const userRef = doc(
+        db,
+        import.meta.env.REACT_APP_SECRET_HASH,
+        otherUser.userId
+      );
       const userSnap = await getDoc(userRef);
 
       if (userSnap.exists()) {
+        const userData = userSnap.data();
+
         setUserProfile((prev) => ({
           ...prev,
-          ...userSnap.data(),
+          ...userData,
         }));
       }
     };
@@ -114,7 +124,7 @@ const ChatsItem: React.FC<{ chat: ChatListInterface }> = ({ chat }) => {
 
             <figcaption className="text-xs text-[#f7f7fc]">
               <span className="text-[15px]">
-                {userProfile.userName} {userProfile.userSurname}
+                {chat.userOneDisplayName !== auth.currentUser?.displayName ? chat.userOneDisplayName : chat.userTwo.displayName}
               </span>
               <span className="block text-[12px] text-[#d1d7db] mt-0.5">
                 {lastMessage?.message}

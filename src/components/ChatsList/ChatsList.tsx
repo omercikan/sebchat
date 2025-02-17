@@ -5,8 +5,13 @@ import ChatsItem from "./ChatsItem";
 import { Button } from "@mui/material";
 import { changeAddContactState } from "../../redux/slices/TabsSlice";
 import { changeSidebarTab } from "../../redux/slices/SidebarActiveSlice";
+import { ChatListInterface } from "../../types";
 
-const ChatsList: React.FC = () => {
+type ChatsListProps = {
+  searchedChat: ChatListInterface[];
+};
+
+const ChatsList: React.FC<ChatsListProps> = ({ searchedChat }) => {
   const { chatList } = useSelector((state: RootState) => state.chatListSlice);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -18,7 +23,7 @@ const ChatsList: React.FC = () => {
   return (
     <ul>
       {chatList.length > 0 ? (
-        chatList.map((chat) => <ChatsItem chat={chat} key={chat.chatId} />)
+        searchedChat.map((chat) => <ChatsItem chat={chat} key={chat.chatId}/>)
       ) : (
         <div className="h-[calc(100vh-85px)] flex flex-col items-center justify-center text-center select-none">
           <p className="text-[#A3B1C6]">

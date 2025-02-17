@@ -28,7 +28,11 @@ const Profile: React.FC = () => {
     if (!auth.currentUser) return;
 
     try {
-      const docRef = doc(db, import.meta.env.REACT_APP_SECRET_HASH, auth.currentUser.uid);
+      const docRef = doc(
+        db,
+        import.meta.env.REACT_APP_SECRET_HASH,
+        auth.currentUser.uid
+      );
       const docSnap = await getDoc(docRef);
 
       if (!docSnap.exists()) {
@@ -79,6 +83,7 @@ const Profile: React.FC = () => {
 
           const reader = new FileReader();
           reader.onloadend = () => {
+            setPhotoError(false);
             const base64Image = reader.result as string;
             setUserPhoto(base64Image);
           };
@@ -92,9 +97,12 @@ const Profile: React.FC = () => {
   );
 
   useEffect(() => {
+    localStorage.clear();
+  });
+
+  useEffect(() => {
     try {
       if (userPhoto) {
-        setPhotoError(false);
         localStorage.setItem("userPhoto", JSON.stringify(userPhoto));
       }
     } catch (error) {
@@ -127,8 +135,10 @@ const Profile: React.FC = () => {
         }
       }
 
-      await addUserToUsersCollection();
-      navigate("/sohbet");
+      if (photoError === false) {
+        await addUserToUsersCollection();
+        navigate("/sohbet");
+      }
     },
     [user, userInfo, navigate]
   );

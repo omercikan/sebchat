@@ -65,6 +65,8 @@ export interface ChatListInterface {
   messages: MessageInterface[];
   otherUser: {
     admin: boolean;
+    userName: string;
+    userSurname: string;
     displayName: string;
     metadata: {
       createdAt: string;
@@ -76,6 +78,7 @@ export interface ChatListInterface {
   };
   serverTime: string;
   timeInformation: string;
+  userOneDisplayName: string;
   userOne: UserContactList;
   userTwo: {
     admin: boolean;
