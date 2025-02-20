@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { CSSTransition } from "react-transition-group";
 import "./privacy-policy.scss";
+import PolicyText from "./PolicyText";
+import PolicyTitle from "./PolicyTitle";
 
 type PrivacyPolicyProps = {
   isOpenPrivacyModal: boolean;
@@ -39,78 +41,102 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({
             />
           </header>
 
-          <p className="mb-5 text-sm text-[#0F1828]">
-            Sebchat, kullanıcılarının gizliliğini ciddiyetle korur ve kişisel
+          <PolicyText
+            key="PolicyHeaderContent"
+            policyContent="Sebchat, kullanıcılarının gizliliğini ciddiyetle korur ve kişisel
             verilerin güvenliği için gerekli tüm önlemleri alır. Bu Gizlilik
             Politikası, Sebchat uygulamasını kullanarak toplanan verilerin nasıl
             kullanıldığını, saklandığını ve korunduğunu açıklamaktadır. Sebchat,
-            tamamen güvenli bir mesajlaşma deneyimi sunmayı taahhüt eder.
-          </p>
+            tamamen güvenli bir mesajlaşma deneyimi sunmayı taahhüt eder."
+          />
 
-          <h2 className="font-medium">1. Mesajlaşma Güvenliği ve Gizliliği</h2>
-          <p className="my-5 text-sm text-[#0F1828]">
-            Sebchat'te yapılan tüm mesajlaşmalar, kullanıcılar arasında güvenli
+          <PolicyTitle
+            policyTitle="1. Mesajlaşma Güvenliği ve Gizliliği"
+            key="PolictTitleOne"
+          />
+          <PolicyText
+            key="PolicyTextOne"
+            policyContent="Sebchat'te yapılan tüm mesajlaşmalar, kullanıcılar arasında güvenli
             bir şekilde iletilir. Ancak, uçtan uca şifreleme kullanılmadığı için
             kullanıcıların kişisel mesajları platform üzerinden saklanabilir
-            veya iletilmiş olabilir. Sebchat, kullanıcıların gizliliğini
-            korumak için çeşitli güvenlik önlemleri alır, ancak her mesajın
-            içeriği sadece kullanıcılar arasında güvenli bir şekilde iletilmeye
-            çalışılır.
-          </p>
+            veya iletilmiş olabilir. Sebchat, kullanıcıların gizliliğini korumak
+            için çeşitli güvenlik önlemleri alır, ancak her mesajın içeriği
+            sadece kullanıcılar arasında güvenli bir şekilde iletilmeye
+            çalışılır."
+          />
 
-          <h2 className="font-medium">2. Toplanan Veriler</h2>
-          <p className="my-5 text-sm text-[#0F1828]">
-            Sebchat, kullanıcıların kayıt sırasında sağladığı kişisel bilgileri
+          <PolicyTitle policyTitle="2. Toplanan Veriler" key="PolicyTitleTwo" />
+          <PolicyText
+            key="PolicyContentTwo"
+            policyContent="Sebchat, kullanıcıların kayıt sırasında sağladığı kişisel bilgileri
             toplar. Bu bilgiler, ad, soyad, e-posta adresi ve diğer iletişim
             bilgilerini içerebilir. Mesajlaşma içeriği yalnızca kullanıcılar
             arasındaki iletişimde yer alır ve kullanıcıların açık izni olmadan
-            depolanmaz veya işlenmez.
-          </p>
+            depolanmaz veya işlenmez."
+          />
 
-          <h2 className="font-medium">3. Verilerin Kullanımı</h2>
-          <p className="my-5 text-sm text-[#0F1828]">
-            Toplanan veriler, yalnızca kullanıcı deneyimini iyileştirmek ve
+          <PolicyTitle
+            key="PolicyTitleThree"
+            policyTitle="3. Verilerin Kullanımı"
+          />
+          <PolicyText
+            key="PolicyTextThree"
+            policyContent="Toplanan veriler, yalnızca kullanıcı deneyimini iyileştirmek ve
             uygulama performansını analiz etmek amacıyla kullanılır. Sebchat,
             mesaj içeriklerinizi görüntülemez veya bu içerikleri herhangi bir
-            amaçla kullanmaz.
-          </p>
+            amaçla kullanmaz."
+          />
 
-          <h2 className="font-medium">4. Verilerin Paylaşımı</h2>
-          <p className="my-5 text-sm text-[#0F1828]">
-            Sebchat, kullanıcıların kişisel bilgilerini veya mesaj içeriklerini
+          <PolicyTitle
+            key="PolicyTitleFour"
+            policyTitle="4. Verilerin Paylaşımı"
+          />
+          <PolicyText
+            key="PolicyTextFour"
+            policyContent="Sebchat, kullanıcıların kişisel bilgilerini veya mesaj içeriklerini
             üçüncü şahıslarla paylaşmaz, satmaz veya kiralamaz. Yalnızca yasal
             gereklilikler kapsamında, gerektiğinde yetkililerle anonim veriler
-            paylaşılabilir.
-          </p>
+            paylaşılabilir."
+          />
 
-          <h2 className="font-medium">5. Verilerin Saklanması</h2>
-          <p className="my-5 text-sm text-[#0F1828]">
-            Sebchat, mesaj içeriğini yalnızca iletilen süre boyunca geçici olarak
-            saklar ve sunuculardan otomatik olarak siler. Kişisel veriler ise
-            yalnızca hizmetlerin sağlanması için gerekli süre boyunca saklanır
-            ve ilgili yasalar çerçevesinde korunur.
-          </p>
+          <PolicyTitle
+            key="PolictTitleFive"
+            policyTitle="5. Verilerin Saklanması"
+          />
+          <PolicyText
+            key="PolictTetxFive"
+            policyContent="Sebchat, mesaj içeriğini yalnızca iletilen süre boyunca geçici
+            olarak saklar ve sunuculardan otomatik olarak siler. Kişisel veriler
+            ise yalnızca hizmetlerin sağlanması için gerekli süre boyunca
+            saklanır ve ilgili yasalar çerçevesinde korunur."
+          />
 
-          <h2 className="font-medium">6. Güvenlik</h2>
-          <p className="my-5 text-sm text-[#0F1828]">
-            Sebchat, kullanıcı verilerini korumak için endüstri standartlarında
+          <PolicyTitle key="PolicyTitleSix" policyTitle="6. Güvenlik" />
+          <PolicyText
+            key="PolicyTextSix"
+            policyContent="Sebchat, kullanıcı verilerini korumak için endüstri standartlarında
             güvenlik önlemleri uygular. Bununla birlikte, internet üzerinden
-            yapılan veri iletiminin %100 güvenli olduğu garanti edilemez.
-          </p>
+            yapılan veri iletiminin %100 güvenli olduğu garanti edilemez."
+          />
 
-          <h2 className="font-medium">7. Kullanıcı Hakları</h2>
-          <p className="my-5 text-sm text-[#0F1828]">
-            Kullanıcılar, kendilerine ait kişisel verilere erişim hakkına
+          <PolicyTitle
+            key="PolicyTitleSeven"
+            policyTitle="7. Kullanıcı Hakları"
+          />
+          <PolicyText
+            key="PolicyTextSeven"
+            policyContent="Kullanıcılar, kendilerine ait kişisel verilere erişim hakkına
             sahiptir. Ayrıca, verilerinin düzeltilmesini veya tamamen
-            silinmesini talep etme hakkına da sahiptirler.
-          </p>
+            silinmesini talep etme hakkına da sahiptirler."
+          />
 
-          <h2 className="font-medium">8. Değişiklikler</h2>
-          <p className="my-5 text-sm text-[#0F1828]">
-            Sebchat, Gizlilik Politikasını zaman zaman güncelleyebilir. Bu tür
+          <PolicyTitle key="PolicyTitleEight" policyTitle="8. Değişiklikler" />
+          <PolicyText
+            key="PolicyTextEight"
+            policyContent="Sebchat, Gizlilik Politikasını zaman zaman güncelleyebilir. Bu tür
             değişiklikler, uygulama üzerinden veya e-posta yoluyla kullanıcılara
-            bildirilecektir.
-          </p>
+            bildirilecektir."
+          />
         </div>
       </div>
     </CSSTransition>
