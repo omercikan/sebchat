@@ -197,7 +197,7 @@ export const firebaseConfig = {
 
 <h2>📜 MIT Lisansı</h2>
 <p>
-  Bu proje MIT Lisansı altında lisanslanmıştır. Bu lisans, kullanıcılara projeyi özgürce kullanma, değiştirme ve dağıtma hakkı verir. Lisansın tam metnini <a href="https://opensource.org/licenses/MIT" target="_blank">buradan</a> okuyabilirsiniz.
+  Bu proje MIT Lisansı altında lisanslanmıştır. Bu lisans, kullanıcılara projeyi özgürce kullanma, değiştirme ve dağıtma hakkı verir. Lisansın tam metnini <a href="https://github.com/omercikan/sebchat/blame/master/LICENSE" target="_blank">buradan</a> okuyabilirsiniz.
 </p>
 
 <h2>🚀 Uygulamayı Deneyimleyin</h2>
