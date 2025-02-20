@@ -49,22 +49,22 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({
 
           <h2 className="font-medium">1. Mesajlaşma Güvenliği ve Gizliliği</h2>
           <p className="my-5 text-sm text-[#0F1828]">
-            Sebchat'te yapılan tüm mesajlaşmalar gizlidir ve hiç kimseyle
-            paylaşılmaz. Mesajlarınız, uçtan uca şifreleme ile korunur ve
-            yalnızca gönderici ile alıcı arasında okunabilir. Mesaj gönderildiği
-            anda, kim olduğunuz bilinmeden sadece belirttiğiniz arkadaşınızın
-            haberdar olduğu bir iletişim süreci başlar. Sebchat, kullanıcıların
-            tamamen güvenli ve özel bir ortamda iletişim kurmalarını sağlar.
+            Sebchat'te yapılan tüm mesajlaşmalar, kullanıcılar arasında güvenli
+            bir şekilde iletilir. Ancak, uçtan uca şifreleme kullanılmadığı için
+            kullanıcıların kişisel mesajları platform üzerinden saklanabilir
+            veya iletilmiş olabilir. Sebchat, kullanıcıların gizliliğini
+            korumak için çeşitli güvenlik önlemleri alır, ancak her mesajın
+            içeriği sadece kullanıcılar arasında güvenli bir şekilde iletilmeye
+            çalışılır.
           </p>
 
           <h2 className="font-medium">2. Toplanan Veriler</h2>
           <p className="my-5 text-sm text-[#0F1828]">
             Sebchat, kullanıcıların kayıt sırasında sağladığı kişisel bilgileri
-            toplar. Bu bilgiler, ad, soyad ve e-posta adresini içerebilir. Bunun
-            dışında, mesajlaşma içeriği hiçbir şekilde depolanmaz veya analiz
-            edilmez. Ayrıca, uygulamanın performansını artırmak için anonim
-            kullanım verileri toplanabilir (örneğin, uygulama kullanım süreleri
-            ve cihaz bilgileri).
+            toplar. Bu bilgiler, ad, soyad, e-posta adresi ve diğer iletişim
+            bilgilerini içerebilir. Mesajlaşma içeriği yalnızca kullanıcılar
+            arasındaki iletişimde yer alır ve kullanıcıların açık izni olmadan
+            depolanmaz veya işlenmez.
           </p>
 
           <h2 className="font-medium">3. Verilerin Kullanımı</h2>
@@ -85,18 +85,17 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({
 
           <h2 className="font-medium">5. Verilerin Saklanması</h2>
           <p className="my-5 text-sm text-[#0F1828]">
-            Mesaj içerikleri, alıcıya iletildikten sonra sunucularımızdan
-            otomatik olarak silinir. Kişisel veriler ise yalnızca hizmetlerin
-            sağlanması için gerekli süre boyunca saklanır ve ilgili yasalar
-            çerçevesinde korunur.
+            Sebchat, mesaj içeriğini yalnızca iletilen süre boyunca geçici olarak
+            saklar ve sunuculardan otomatik olarak siler. Kişisel veriler ise
+            yalnızca hizmetlerin sağlanması için gerekli süre boyunca saklanır
+            ve ilgili yasalar çerçevesinde korunur.
           </p>
 
           <h2 className="font-medium">6. Güvenlik</h2>
           <p className="my-5 text-sm text-[#0F1828]">
-            Sebchat, kullanıcı verilerini korumak için en güncel güvenlik
-            önlemlerini uygular. Mesajlaşma süreci, endüstri standartlarında
-            uçtan uca şifreleme ile korunur. Ancak, internet üzerinden yapılan
-            veri iletiminin %100 güvenli olduğu garanti edilemez.
+            Sebchat, kullanıcı verilerini korumak için endüstri standartlarında
+            güvenlik önlemleri uygular. Bununla birlikte, internet üzerinden
+            yapılan veri iletiminin %100 güvenli olduğu garanti edilemez.
           </p>
 
           <h2 className="font-medium">7. Kullanıcı Hakları</h2>

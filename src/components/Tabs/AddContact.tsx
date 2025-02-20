@@ -6,7 +6,7 @@ const AddContact: React.FC = () => {
   const [searchContact, setSearchContact] = useState<string>("");
 
   return (
-    <div className="h-screen bg-[#0a121f] shadow shadow-[#0a121f] drop-shadow drop-shadow-2xl shadow-2xl p-3">
+    <div className="h-screen overflow-y-auto bg-[#0a121f] shadow shadow-[#0a121f] drop-shadow drop-shadow-2xl shadow-2xl p-3" style={{scrollbarWidth: "thin"}}>
       <div className="add-contact-search">
         <div className="flex relative">
           <IoSearch
