@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import React, { Suspense } from "react";
 import Loading from "./components/Loading.tsx";
 import NotFound from "./components/NotFound/NotFound.tsx";
+import ErrorElement from "./components/ErrorElement/ErrorElement.tsx";
 
 const GettingStarted = React.lazy(() => import("./pages/GettingStarted.tsx"));
 const CreateAccount = React.lazy(() => import("./pages/CreateAccount.tsx"));
@@ -15,7 +16,9 @@ export const MainRouter = createBrowserRouter([
         <GettingStarted />
       </Suspense>
     ),
+    errorElement: <ErrorElement />,
   },
+
   {
     path: "/hesap-olustur",
 
@@ -24,7 +27,9 @@ export const MainRouter = createBrowserRouter([
         <CreateAccount />
       </Suspense>
     ),
+    errorElement: <ErrorElement />,
   },
+
   {
     path: "/sohbet",
     element: (
@@ -32,9 +37,12 @@ export const MainRouter = createBrowserRouter([
         <Chat />
       </Suspense>
     ),
+    errorElement: <ErrorElement />,
   },
+
   {
     path: "*",
     element: <NotFound />,
+    errorElement: <ErrorElement />,
   },
 ]);

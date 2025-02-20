@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 .env
 src/firebaseConfig.ts
+.firebaserc
+.gitignore
+firebase.json
+.firebase/hosting.ZGlzdA.cache
