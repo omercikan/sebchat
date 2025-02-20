@@ -1,4 +1,7 @@
 <h1 align="center">🔒 SebChat - Modern Gerçek Zamanlı Mesajlaşma Platformu</h1>
+<p align="center" style="margin-top: 10px; font-size: 1.2em; color: #555;">
+  <em>Hızlı, Güvenli ve Kullanıcı Dostu Mesajlaşma Deneyimi</em>
+</p>
 
 <div align="center">
   <img src="https://res.cloudinary.com/dwyvwkzap/image/upload/v1739740848/1_lffwa3.png" alt="SebChat Tanıtım" style="width: 100%; max-width: 700px; height: auto;">
@@ -6,11 +9,11 @@
 
 <h2>📌 Uygulama Tanıtımı</h2>
 <p>
-  <strong>SebChat</strong>, kullanıcıların sisteme kaydolmuş diğer kullanıcılarla güvenli ve izole bir şekilde iletişim kurmalarını sağlayan modern bir gerçek zamanlı mesajlaşma platformudur. Uygulama, React ve Firebase teknolojileriyle geliştirilmiştir ve kullanıcıların hızlı ve güvenli mesajlaşmalarını mümkün kılar.
+  <strong>SebChat</strong>, modern ve güvenli bir gerçek zamanlı mesajlaşma platformudur. React ve Firebase teknolojileriyle geliştirilen bu uygulama, kullanıcıların hızlı ve güvenli bir şekilde iletişim kurmasını sağlar.
 </p>
 
 <h3>📋 Kurulum Adımları</h3>
-<ul>
+<ol>
   <li>
     Projenin en son sürümünü GitHub'dan klonlayın:
     <pre><code>git clone https://github.com/omercikan/sebchat.git</code></pre>
@@ -37,14 +40,14 @@ export const firebaseConfig = {
 };
     </code></pre>
     <p>
-      Not: Firebase kurulumu sadece bu dosya ile bitmez; kendi veritabanınızı oluşturmanız, güvenlik kurallarınızı yazmanız ve diğer ayarları yapmanız gerekmektedir.
+      Not: Firebase kurulumu sadece bu dosya ile bitmez; kendi veritabanınızı oluşturmanız, güvenlik kurallarınızı yazmanız ve diğer ayarları yapmanız gerekmektedir. Detaylı rehber için <a href="https://firebase.google.com/docs" target="_blank">Firebase Dokümantasyonu</a>'nu inceleyebilirsiniz.
     </p>
   </li>
   <li>
     Firebase ayarlarınızı tamamladıktan sonra, uygulamayı başlatmak için:
     <pre><code>npm run dev</code></pre>
   </li>
-</ul>
+</ol>
 
 <h3>⚠️ Önemli Not</h3>
 <p>
@@ -52,57 +55,60 @@ export const firebaseConfig = {
 </p>
 
 <h2>📌 Öne Çıkan Özellikler</h2>
-<ul>
-  <li>🔒 Firebase ile Güvenli Kimlik Doğrulama</li>
-  <li>⚡ Gerçek Zamanlı Mesajlaşma</li>
-  <li>📱 Responsive & Modern UI</li>
-  <li>👥 Kullanıcı Yönetimi</li>
-  <li>🌈 Özelleştirilebilir Profil</li>
-  <li>🔔 Bildirim Sistemi (React Hot Toast)</li>
-  <li>🛡️ TypeScript ile Tip Güvenliği</li>
-</ul>
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px; width: 200px;">
+    <strong>🔒 Güvenli Kimlik Doğrulama</strong>
+    <p>Firebase ile güvenli kullanıcı kimlik doğrulama sistemi.</p>
+  </div>
+  <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px; width: 200px;">
+    <strong>⚡ Gerçek Zamanlı Mesajlaşma</strong>
+    <p>Anlık mesajlaşma ile kesintisiz iletişim.</p>
+  </div>
+  <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px; width: 200px;">
+    <strong>📱 Responsive & Modern UI</strong>
+    <p>Tüm cihazlarda uyumlu, modern kullanıcı arayüzü.</p>
+  </div>
+  <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px; width: 200px;">
+    <strong>👥 Kullanıcı Yönetimi</strong>
+    <p>Kullanıcıların kolayca yönetilmesi.</p>
+  </div>
+  <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px; width: 200px;">
+    <strong>🌈 Özelleştirilebilir Profil</strong>
+    <p>Kullanıcıların profillerini kişiselleştirmesi.</p>
+  </div>
+  <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px; width: 200px;">
+    <strong>🔔 Bildirim Sistemi</strong>
+    <p>React Hot Toast ile bildirimler.</p>
+  </div>
+  <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px; width: 200px;">
+    <strong>🛡️ TypeScript ile Tip Güvenliği</strong>
+    <p>Kod güvenliği ve tip güvenliği.</p>
+  </div>
+  <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px; width: 200px;">
+    <strong>📧 E-posta Doğrulama</strong>
+    <p>Kayıt olan kullanıcıya e-posta doğrulama linki gönderilir. 30 saniye içinde tıklanmazsa kayıt iptal edilir.</p>
+  </div>
+</div>
 
 <h2>📸 Ekran Görüntüleri</h2>
-<table style="width: 100%; border-collapse: collapse;">
-  <thead>
-    <tr style="background-color: #f3f4f6;">
-      <th style="padding: 10px; text-align: center; border: 1px solid #ddd;">Görsel Başlığı</th>
-      <th style="padding: 10px; text-align: center; border: 1px solid #ddd;">Görsel</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="background-color: #ffffff;">
-      <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Başlangıç Ekranı (Giriş ve Kayıt)</td>
-      <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">
-        <img src="https://res.cloudinary.com/dwyvwkzap/image/upload/v1739740847/2_aqixwo.png" style="width: 100%; max-width: 500px; height: auto;" alt="Başlangıç Ekranı">
-      </td>
-    </tr>
-    <tr style="background-color: #f9f9f9;">
-      <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Giriş ve Kayıt Sayfası</td>
-      <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">
-        <img src="https://res.cloudinary.com/dwyvwkzap/image/upload/v1739740847/3_bjyczd.png" style="width: 100%; max-width: 500px; height: auto;" alt="Giriş ve Kayıt Sayfası">
-      </td>
-    </tr>
-    <tr style="background-color: #ffffff;">
-      <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Kullanıcı Listesi</td>
-      <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">
-        <img src="https://res.cloudinary.com/dwyvwkzap/image/upload/v1739740847/4_b3tmvc.png" style="width: 100%; max-width: 500px; height: auto;" alt="Kullanıcı Listesi">
-      </td>
-    </tr>
-    <tr style="background-color: #f9f9f9;">
-      <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Sohbet Ekranı</td>
-      <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">
-        <img src="https://res.cloudinary.com/dwyvwkzap/image/upload/v1739740847/5_sdajip.png" style="width: 100%; max-width: 500px; height: auto;" alt="Sohbet Ekranı">
-      </td>
-    </tr>
-    <tr style="background-color: #ffffff;">
-      <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Kullanıcı Profil Ekranı</td>
-      <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">
-        <img src="https://res.cloudinary.com/dwyvwkzap/image/upload/v1739740847/6_trrpl6.png" style="width: 100%; max-width: 500px; height: auto;" alt="Kullanıcı Profil Ekranı">
-      </td>
-    </tr>
-  </tbody>
-</table>
+<h3 style="text-align: center; margin-bottom: 20px;">Uygulama Ekranları</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <div style="flex: 1; min-width: 200px;">
+    <img src="https://res.cloudinary.com/dwyvwkzap/image/upload/v1739740847/2_aqixwo.png" style="width: 100%; border-radius: 5px;" alt="Başlangıç Ekranı">
+  </div>
+  <div style="flex: 1; min-width: 200px;">
+    <img src="https://res.cloudinary.com/dwyvwkzap/image/upload/v1739740847/3_bjyczd.png" style="width: 100%; border-radius: 5px;" alt="Giriş ve Kayıt Sayfası">
+  </div>
+  <div style="flex: 1; min-width: 200px;">
+    <img src="https://res.cloudinary.com/dwyvwkzap/image/upload/v1739740847/4_b3tmvc.png" style="width: 100%; border-radius: 5px;" alt="Kullanıcı Listesi">
+  </div>
+  <div style="flex: 1; min-width: 200px;">
+    <img src="https://res.cloudinary.com/dwyvwkzap/image/upload/v1739740847/5_sdajip.png" style="width: 100%; border-radius: 5px;" alt="Sohbet Ekranı">
+  </div>
+  <div style="flex: 1; min-width: 200px;">
+    <img src="https://res.cloudinary.com/dwyvwkzap/image/upload/v1739740847/6_trrpl6.png" style="width: 100%; border-radius: 5px;" alt="Kullanıcı Profil Ekranı">
+  </div>
+</div>
 
 <h2>🚀 Teknoloji Stack'i</h2>
 
@@ -121,15 +127,15 @@ export const firebaseConfig = {
     </tr>
     <tr style="background-color: #f9f9f9;">
       <td style="padding: 10px; border: 1px solid #ddd;">TypeScript</td>
-      <td style="padding: 10px; border: 1px solid #ddd;">Kod güvenliği sağlamak ve tip güvenliğini artırmak için kullanılmıştır.</td>
+      <td style="padding: 10px; border: 1px solid #ddd;">Kod güvenliği ve tip güvenliği için kullanılmıştır.</td>
     </tr>
     <tr style="background-color: #ffffff;">
       <td style="padding: 10px; border: 1px solid #ddd;">Redux Toolkit</td>
-      <td style="padding: 10px; border: 1px solid #ddd;">Uygulamanın durum yönetimi için Redux Toolkit kullanılmıştır.</td>
+      <td style="padding: 10px; border: 1px solid #ddd;">Uygulamanın durum yönetimi için kullanılmıştır.</td>
     </tr>
     <tr style="background-color: #f9f9f9;">
       <td style="padding: 10px; border: 1px solid #ddd;">React Router</td>
-      <td style="padding: 10px; border: 1px solid #ddd;">Modern ve verimli yönlendirme işlemleri için React Router V7 kullanılmıştır.</td>
+      <td style="padding: 10px; border: 1px solid #ddd;">Modern ve verimli yönlendirme işlemleri için kullanılmıştır.</td>
     </tr>
   </tbody>
 </table>
@@ -189,11 +195,12 @@ export const firebaseConfig = {
   <li><strong>Prettier</strong> (Kod Formatlama)</li>
 </ul>
 
-<h2>🚀 Uygulamayı Deneyimleyin</h2>
+<h2>📜 MIT Lisansı</h2>
 <p>
-  SebChat'i denemek için uygulamanın canlı demosunu ziyaret edebilirsiniz. Aşağıdaki linke tıklayarak hemen deneyimleyin:
+  Bu proje MIT Lisansı altında lisanslanmıştır. Bu lisans, kullanıcılara projeyi özgürce kullanma, değiştirme ve dağıtma hakkı verir. Lisansın tam metnini <a href="https://github.com/omercikan/sebchat/blame/master/LICENSE" target="_blank">buradan</a> okuyabilirsiniz.
 </p>
 
-<div>
-  <a href="https://sebchatapp.netlify.app/" target="_blank">SebChat'i Hemen Deneyin</a>
+<h2>🚀 Uygulamayı Deneyimleyin</h2>
+<div style="text-align: center; margin: 20px 0;">
+ 🚀 <a href="https://sebchatapp.netlify.app/" target="_blank" style="background-color: #007BFF; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Canlı Demo'yu Görüntüle</a>
 </div>
