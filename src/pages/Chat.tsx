@@ -13,7 +13,7 @@ import { AppDispatch, RootState } from "../redux/store";
 import { addMessage } from "../redux/slices/chatSlice";
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
-import UserAccountSetting from "../components/User/UserAccountSetting";
+import UserAccountSetting from "../components/User/AccountSetting/UserAccountSetting";
 import ChatHeader from "../components/Chat/Layout/ChatHeader";
 import ChatBody from "../components/Chat/Layout/ChatBody";
 import ChatFooter from "../components/Chat/Layout/ChatFooter/ChatFooter";

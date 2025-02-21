@@ -2,9 +2,9 @@ import React, { memo, useCallback, useEffect } from "react";
 import toast from "react-hot-toast";
 
 type UserProfileInputProps = {
-  photoError: boolean;
+  photoError?: boolean;
   setPhotoError: React.Dispatch<React.SetStateAction<boolean>>;
-  userPhoto: string;
+  userPhoto?: string;
   setUserPhoto: React.Dispatch<React.SetStateAction<string>>;
   type: string;
   name: string;

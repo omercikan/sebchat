@@ -102,3 +102,8 @@ export interface MessageInterface {
   };
   timestamp: number;
 }
+
+export type UserUploadPhotoProps = {
+  userPhoto: string;
+  setUserPhoto: React.Dispatch<React.SetStateAction<string>>;
+};
