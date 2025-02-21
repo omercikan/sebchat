@@ -9,7 +9,7 @@ import { FaCamera } from "react-icons/fa";
 import { CSSTransition } from "react-transition-group";
 import { updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
-import LogoutModal from "./LogoutModal";
+import LogoutModal from "./logout/LogoutModal";
 import ProfileImage from "../../assets/images/profile.png";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";

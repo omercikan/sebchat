@@ -1,10 +1,21 @@
-@use 'base.scss';
-@use '../components/Privacy/privacy-policy.scss';
-@use 'components/none-spin-button.scss';
-@use 'components/scrollbar.scss';
-@use '../components/User/account-modal.scss';
-@use '../components/User/logout-button.scss';
-@use '../components/User/logout-modal.scss';
-@use '../components/AddContact/contact-item.scss';
-@use '../components/NotFound/not-found.scss';
-@use '../components/ErrorElement/error-element.scss';
+//! BASE SCSS FILE !//  
+@use "base.scss";
+
+//! SCSS FILE FOR PRIVACY COMPONENT !//  
+@use "../components/Privacy/privacy-policy.scss";
+
+//! UTILITY SCSS FILES !//  
+@use "components/none-spin-button.scss";
+@use "components/scrollbar.scss";
+
+//! SCSS FILES FOR USER COMPONENTS !//  
+@use "../components/User/account-modal.scss";
+@use "../components/User/logout/logout-scss/logout-button.scss";
+@use "../components/User/logout/logout-scss/logout-modal.scss";
+
+//! SCSS FILE FOR ADD CONTACT ITEM COMPONENT !//  
+@use "../components/AddContact/contact-item.scss";
+
+//! SCSS FILES FOR NOT FOUND AND ERROR ELEMENT COMPONENTS !//  
+@use "../components/NotFound/not-found.scss";
+@use "../components/ErrorElement/error-element.scss";
