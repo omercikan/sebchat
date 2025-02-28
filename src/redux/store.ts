@@ -6,6 +6,7 @@ import { chatListSlice } from "./slices/chatListSlice";
 import { sidebarActiveSlice } from "./slices/SidebarActiveSlice";
 import { setChatIdSlice } from "./slices/setChatIdSlice";
 import { accountSettingPanel } from "./slices/accountSettingPanel";
+import { emailVerificationSlice } from "./slices/emailVerificationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     sidebarActiveSlice: sidebarActiveSlice.reducer,
     setChatId: setChatIdSlice.reducer,
     accountSettingPanel: accountSettingPanel.reducer,
+    emailVerificationSlice: emailVerificationSlice.reducer,
   },
 });
 

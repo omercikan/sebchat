@@ -1,6 +1,5 @@
 import {
   createUserWithEmailAndPassword,
-  sendEmailVerification,
   signInWithEmailAndPassword,
   User,
 } from "firebase/auth";
@@ -26,6 +25,7 @@ type AuthFormProps = {
       password: string;
     }>
   >;
+  setAuthStep: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const AuthForm: React.FC<AuthFormProps> = ({
@@ -34,6 +34,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
   user,
   inputs,
   setInputs,
+  setAuthStep,
 }) => {
   const navigate = useNavigate();
 
@@ -63,8 +64,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
           );
 
           if (userCredential) {
-            await sendEmailVerification(userCredential.user);
-            toast.success("Doğrulama e-postası gönderildi");
+            setAuthStep(2);
           }
         } catch (error: any) {
           switch (error.code) {

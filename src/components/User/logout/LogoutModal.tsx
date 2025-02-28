@@ -18,7 +18,7 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
     <React.Fragment>
       <CSSTransition
         in={isLogout}
-        timeout={500}
+        timeout={400}
         classNames="logout-modal"
         unmountOnExit
         nodeRef={logoutModalRef}
@@ -29,7 +29,7 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
           } w-full h-screen fixed left-0 top-0 flex justify-center items-center z-50`}
         >
           <div
-            className="bg-[#0f1828] shadow-[#0A101F] shadow-2xl drop-shadow-2xl px-6 pt-[22px] pb-5 w-[500px] max-sm:w-[95%] rounded-lg"
+            className="bg-[#0f1828] border border-[#2A3335] shadow-[#0A101F] shadow-2xl drop-shadow-2xl px-6 pt-[22px] pb-5 w-[500px] max-sm:w-[95%] rounded-lg"
             ref={logoutModalRef}
           >
             <LogoutConfirmation />
