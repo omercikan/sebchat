@@ -21,6 +21,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import TabGroup from "../components/Tabs/TabGroup";
 import { changeAddContactState } from "../redux/slices/TabsSlice";
 import TabMessage from "../components/Tabs/TabMessage";
+import VerificationModal from "../components/EmailVerificationModal/VerificationModal";
 
 const Chat: React.FC = () => {
   const [user, isLoading] = useAuthState(auth);
@@ -105,6 +106,7 @@ const Chat: React.FC = () => {
       </div>
 
       <UserAccountSetting name={name} surname={surname} />
+      <VerificationModal />
     </React.Fragment>
   );
 };

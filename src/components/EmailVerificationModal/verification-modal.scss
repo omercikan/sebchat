@@ -1,0 +1,25 @@
+.verification-modal-enter {
+    opacity: 0;
+    visibility: hidden;
+    scale: .7;
+}
+
+.verification-modal-enter-active {
+    opacity: 1;
+    visibility: visible;
+    scale: 1;
+    transition: all .4s ease;
+}
+
+.verification-modal-exit {
+    opacity: 1;
+    visibility: visible;
+    scale: 1;
+}
+
+.verification-modal-exit-active {
+    opacity: 0;
+    visibility: hidden;
+    scale: .7;
+    transition: all .4s ease;
+}

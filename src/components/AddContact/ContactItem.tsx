@@ -17,6 +17,8 @@ import { AppDispatch, RootState } from "../../redux/store";
 import { addChatList } from "../../redux/slices/chatListSlice";
 import { MdOutlineVerifiedUser } from "react-icons/md";
 import ProfilPhoto from "../../assets/images/profile.png";
+import { changeVerificationModal } from "../../redux/slices/emailVerificationSlice";
+import toast from "react-hot-toast";
 
 type ContactItemProps = {
   user: UserContactList;
@@ -40,6 +42,20 @@ const ContactItem: React.FC<ContactItemProps> = ({ user }) => {
 
   const addUserToChat = useCallback(async () => {
     if (!currentUser || !user) return;
+
+    if (!user.userEmailVerified) {
+      toast.error(
+        `${user.userName} ${user.userSurname} kullanıcısının hesabı onaylı olmadığı için ekleyemezsiniz!`
+      );
+      return;
+    }
+
+    if (!auth.currentUser?.emailVerified) {
+      dispatch(changeVerificationModal(true));
+      return;
+    } else {
+      toast.success(`${user.userName} ${user.userSurname} başarıyla eklendi.`);
+    }
 
     const docRef = doc(db, import.meta.env.REACT_APP_SECRET_KEY, chatId);
     const docSnap = await getDoc(docRef);
@@ -71,7 +87,13 @@ const ContactItem: React.FC<ContactItemProps> = ({ user }) => {
         "chats",
         chatId
       );
-      const userTwoChatRef = doc(db, import.meta.env.REACT_APP_SECRET_HASH, user.userId, "chats", chatId);
+      const userTwoChatRef = doc(
+        db,
+        import.meta.env.REACT_APP_SECRET_HASH,
+        user.userId,
+        "chats",
+        chatId
+      );
 
       await Promise.all([
         setDoc(userOneChatRef, newChatData, { merge: true }),
@@ -126,7 +148,9 @@ const ContactItem: React.FC<ContactItemProps> = ({ user }) => {
             <img
               src={userProfilPhoto ? userProfilPhoto : ProfilPhoto}
               alt={`${userName} ${userSurname}`}
-              className={`w-[40px] h-[40px] object-cover rounded-full ${ProfilPhoto && "border border-gray-500 border-dotted"}`}
+              className={`w-[40px] h-[40px] object-cover rounded-full ${
+                ProfilPhoto && "border border-gray-500 border-dotted"
+              }`}
             />
 
             <figcaption

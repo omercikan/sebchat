@@ -79,7 +79,7 @@ const Profile: React.FC = () => {
       }
 
       if (photoError === false) {
-        await addUserToUsersCollection();
+        addUserToUsersCollection();
         navigate("/sohbet");
       }
     },

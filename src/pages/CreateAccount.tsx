@@ -1,8 +1,7 @@
-import { deleteUser, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import React, { memo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebaseConfig";
-import toast from "react-hot-toast";
 import Profile from "../components/Profile/Profile";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Loading from "../components/Loading";
@@ -23,93 +22,9 @@ const CreateAccount: React.FC = () => {
   });
 
   useEffect(() => {
-    let refreshTimeout: NodeJS.Timeout;
-    let countRefresh: number = JSON.parse(
-      localStorage.getItem("countRefresh") || "0"
-    );
-
     onAuthStateChanged(auth, (user) => {
-      if (user && user?.emailVerified && user.displayName) {
+      if (user && user.displayName) {
         navigate("/sohbet");
-      }
-
-      if (user && !user.emailVerified && countRefresh >= 0) {
-        refreshTimeout = setTimeout(() => {
-          window.location.reload();
-          localStorage.setItem(
-            "countRefresh",
-            JSON.stringify(Number(countRefresh + 1))
-          );
-        }, 5000);
-      }
-
-      if (user && !user.emailVerified && countRefresh == 0) {
-        toast(
-          "Spam hesapları engellemek için e-posta onayı yapılmazsa hesabınız 30 saniye içinde silinecektir.",
-          {
-            duration: 10000,
-            icon: "⚠️",
-            style: {
-              borderRadius: "10px",
-              background: "#333",
-              color: "#fff",
-            },
-          }
-        );
-      }
-
-      if (countRefresh == 6) {
-        if (user) {
-          deleteUser(user).then(() =>
-            toast(
-              <div className="text-center">
-                <p>
-                  <strong className="font-semibold">
-                    ⚠️ Hesabınız Güvenlik Nedeniyle Silindi!
-                  </strong>
-                </p>
-                <br />
-                <p>
-                  Platformun güvenliğini sağlamak amacıyla, e-posta adresinizi
-                  onaylamadığınız için hesabınız otomatik olarak silinmiştir.
-                </p>
-                <br /> <br />
-                <p>🔄 Yeni bir hesap oluşturarak tekrar kayıt olabilirsiniz.</p>
-              </div>,
-              {
-                duration: 10000,
-                style: {
-                  background: "#333",
-                  fontSize: "14px",
-                  color: "#fff",
-                  borderRadius: "10px",
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-                },
-              }
-            )
-          );
-
-          toast.dismiss();
-          clearTimeout(refreshTimeout);
-          localStorage.setItem(
-            "countRefresh",
-            JSON.stringify(Number((countRefresh = 0)))
-          );
-        }
-      }
-
-      if (user && user.emailVerified && !user.displayName) {
-        toast.dismiss();
-        toast.success("Doğrulama başarılı!");
-        clearTimeout(refreshTimeout);
-        localStorage.setItem(
-          "countRefresh",
-          JSON.stringify(Number((countRefresh = 0)))
-        );
-
-        setTimeout(() => {
-          setAuthStep(2);
-        }, 3000);
       }
     });
   }, [navigate]);
@@ -141,6 +56,7 @@ const CreateAccount: React.FC = () => {
                   user={user}
                   inputs={inputs}
                   setInputs={setInputs}
+                  setAuthStep={setAuthStep}
                 />
               </div>
             </div>

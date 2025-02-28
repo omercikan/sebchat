@@ -8,6 +8,7 @@ body {
   background-color: #0f1828;
   position: relative;
   touch-action: pan-x pan-y;
+  user-select: none;
 }
 
 body,
@@ -18,7 +19,7 @@ html {
 }
 
 img {
-  user-select: none;
+  pointer-events: none;
 }
 
 li {
